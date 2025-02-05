@@ -1,10 +1,11 @@
 @props(['users'])
 
+
 <div id="docs-card"
 class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_1px_5px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
 <div id="screenshot-container" class="relative flex items-stretch flex-1 w-full">
     <input id="search-input"
-        class="absolute top-0 left-0 z-20 flex px-3 py-2 m-3 text-gray-600 border rounded-md shadow-sm controls focus:outline-none focus:ring-2 focus:ring-indigo-600"
+        class="absolute z-20 flex text-gray-600 border rounded-lg shadow-sm top-2 right-20 controls focus:outline-none focus:ring-2 focus:ring-indigo-600"
         type="text" placeholder="Buscar lugares" class="">
 
     <div id="map" style="width: 100% ">
@@ -54,59 +55,35 @@ class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 s
             center: { lat: -25.363, lng: 131.044 },
         });
 
-        const markers = [];
-
-        @foreach ($users as $user)
-            var userLat = parseFloat({{ $user->latitud }});
-            var userLng = parseFloat({{ $user->longitud }});
-
-            // Solo crea marcadores si las coordenadas son números finitos
-            if (isFinite(userLat) && isFinite(userLng)) {
-                    var marker = new google.maps.Marker({
-                    position: {
-                        lat: userLat,
-                        lng: userLng
-                    },
-                    map: map
-                });
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: '<h1>{{ $user->name }}</h1>' +
-                        '<br>' + '<h2>{{ $user->phone }}</h2>' +
-                        '<br>' + '<h3>{{ $user->email }}</h3>'
-                });
-
-                marker.addListener('click', function() {
-                    infoWindow.open(map, marker);
-                });
-
-                markers.push(marker); // Añade el marcador al array de marcadores
-            }
-        @endforeach
-
-        // Añadir funcionalidad de búsqueda
-        const input = document.getElementById('search-input');
+        const input = document.getElementById("pac-input");
         const searchBox = new google.maps.places.SearchBox(input);
+
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        map.addListener('bounds_changed', function() {
+        // Sesgo de los resultados de búsqueda hacia el área del mapa actual.
+        map.addListener("bounds_changed", () => {
             searchBox.setBounds(map.getBounds());
         });
 
-        searchBox.addListener('places_changed', function() {
+        const markers = [];
+
+        // Escuchar el evento places_changed en el SearchBox.
+        searchBox.addListener("places_changed", () => {
             const places = searchBox.getPlaces();
 
             if (places.length == 0) {
                 return;
             }
 
-            // Limpiar marcadores antiguos
-            markers.forEach(marker => marker.setMap(null));
+            // Limpiar los marcadores antiguos.
+            markers.forEach((marker) => {
+                marker.setMap(null);
+            });
             markers.length = 0;
 
-            // Para cada lugar, obtener el nombre y la ubicación
+            // Para cada lugar, obtener el nombre y la ubicación.
             const bounds = new google.maps.LatLngBounds();
-            places.forEach(place => {
+            places.forEach((place) => {
                 if (!place.geometry || !place.geometry.location) {
                     console.log("Returned place contains no geometry");
                     return;
@@ -128,6 +105,60 @@ class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 s
             });
             map.fitBounds(bounds);
         });
+
+        // Intentar obtener la ubicación actual del usuario
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const userLatLng = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                // Centrar el mapa en la ubicación del usuario
+                map.setCenter(userLatLng);
+
+                // Añadir un marcador en la ubicación del usuario
+                new google.maps.Marker({
+                    position: userLatLng,
+                    map,
+                    title: "Tu ubicación",
+                });
+            }, function() {
+                handleLocationError(true, map.getCenter());
+            });
+        } else {
+            // El navegador no soporta geolocalización
+            handleLocationError(false, map.getCenter());
+        }
+
+        @foreach ($users as $user)
+            var userLat = parseFloat({{ $user->latitud }});
+            var userLng = parseFloat({{ $user->longitud }});
+
+            // Solo crea marcadores si las coordenadas son números finitos
+            if (isFinite(userLat) && isFinite(userLng)) {
+                var marker = new google.maps.Marker({
+                    position: {
+                        lat: userLat,
+                        lng: userLng
+                    },
+                    map: map,
+                    title: "{{ $user->name }}"
+                });
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: '<h1>{{ $user->name }}</h1>' +
+                        '<br>' + '<h2>{{ $user->phone }}</h2>' +
+                        '<br>' + '<h3>{{ $user->email }}</h3>'
+                });
+
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker); // Añade el marcador al array de marcadores
+            }
+        @endforeach
     }
 
     function handleLocationError(browserHasGeolocation, pos) {
@@ -143,7 +174,7 @@ class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 s
     // Cargar el script de Google Maps y llamar a la función initMap
     function loadScript() {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA7__rpQc2QgADzTtK-kzOWNuBe5X7csKo&libraries=places&callback=initMap`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA7__rpQc2QgADzTtK-kzOWNuBe5X7csKo&&libraries=places&callback=initMap`;
         script.async = true;
         document.head.appendChild(script);
     }
