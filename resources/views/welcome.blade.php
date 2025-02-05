@@ -19,9 +19,10 @@
 
 </head>
 
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <img id="background" class="absolute w-full h-full" src="{{ asset('img/layered-waves-haikei-2.svg') }}" />
+<body class="font-sans antialiased dark:bg-black dark:text-white/50 ">
+
+
+    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 bg-[url({{ asset('img/layered-waves-haikei-2.svg') }})] bg-cover bg-center">
         <div
             class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -40,13 +41,13 @@
                                 </a>
                             @else
                                 <a href="{{ route('login') }}"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] hover:underline">
                                     Log in
                                 </a>
 
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                        class="rounded-md px-3 py-2  ring-1 ring-transparent transition text-black hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] hover:underline ">
                                         Register
                                     </a>
                                 @endif
@@ -67,7 +68,7 @@
                     </div>
                 </main>
 
-                <footer class="py-16 text-sm text-center text-black dark:text-white/70">
+                <footer class="py-16 text-sm text-center text-white/70">
                     WipeOut  {{ date('Y') }} ©
 
                 </footer>

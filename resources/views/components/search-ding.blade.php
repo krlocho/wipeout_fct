@@ -11,22 +11,17 @@
                                 </svg>
                             </div>
 
-                            <div class="pt-3 sm:pt-5">
+                            <div class="flex flex-col gap-3 pt-3 sm:pt-5">
                                 <h2 class="text-xl font-semibold text-black dark:text-white">Comprueba el estado de tu
                                     reparacion</h2>
 
-                                <form method="GET" action="{{ route('reparaciones.buscar') }}">
-                                    <input type="text" class="w-full p-2 mt-2 border-2 border-black" id="id"
+                                <form method="GET" class="flex flex-col gap-3 " action="{{ route('reparaciones.buscar') }}">
+                                    <input type="text" class="w-full p-2 rounded-lg border-grey" id="id"
                                         name="id" placeholder="Introduce el ID de la reparación">
-                                    <input type="text" class="w-full p-2 mt-2 border-2 border-black" id="user_id"
+                                    <input type="text" class="w-full p-2 rounded-lg border-grey" id="user_id"
                                         name="user_id" placeholder="Introduce el ID del usuario">
-                                    <button type="submit">Buscar reparación</button>
+                                    <button type="submit" class="px-4 rounded-lg dark:bg-white dark:text-black hover:bg-red-500 hover:transition hover:delay-150 hover:duration-300 w-fit">Buscar reparación</button>
                                 </form>
                             </div>
 
-                            <svg class="size-6 shrink-0 self-center stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
                         </div>
