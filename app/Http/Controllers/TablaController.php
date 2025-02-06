@@ -46,6 +46,7 @@ class TablaController extends Controller
 
 
         $datos_tabla = $request->except('_token');
+        $datos_tabla['user_id'] = Auth::id();
         Tabla::insert($datos_tabla);
         return redirect()->route('tablas.index');
     }
