@@ -131,8 +131,7 @@ class ReparacionController extends Controller
 
 
 
-
-        return response()->view('reparacion.index', compact('reparaciones'));
+        return redirect()->route('reparaciones.index');
     }
 
     /**
