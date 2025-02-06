@@ -14,7 +14,7 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class ClienteController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -39,7 +39,7 @@ class ClienteController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreClienteRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(StoreClienteRequest $request)
     {
@@ -50,25 +50,25 @@ class ClienteController extends Controller
         Cliente::insert($datos_cliente);
         $clientes = Cliente::orderBy('id', 'desc')->get();
 
-        return view('cliente.index', compact('clientes'));
+        return redirect()->route('clientes.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('cliente.show', compact('cliente'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -89,14 +89,14 @@ class ClienteController extends Controller
         Cliente::where('id', '=', $id)->update($datos_cliente);
         $cliente = Cliente::findOrFail($id);
 
-        return redirect('clientes');
+        return response()->redirectTo('clientes');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
