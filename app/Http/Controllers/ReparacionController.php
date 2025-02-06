@@ -23,16 +23,17 @@ class ReparacionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
 
     {
-        $reparaciones = Reparacion::getReparacionMayusculas();
+        $user_id = Auth::id();
+        $reparaciones = Reparacion::where('user_id', $user_id)->get();
 
 
 
-        return view('reparacion.index', compact('reparaciones'));
+        return response()->view('reparacion.index', compact('reparaciones'));
     }
     /**
      * Show the form for creating a new resource.
@@ -44,7 +45,7 @@ class ReparacionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -65,19 +66,14 @@ class ReparacionController extends Controller
     public function store(StoreReparacionRequest $request)
     {
         $datos_reparacion = $request->except('_token');
-        $datos_reparacion['User_id'] = auth()->id();
+        $datos_reparacion['user_id'] = Auth::id();
 
-
-
-        $reparacion = Reparacion::create($datos_reparacion);
-        $datos_reparacion['id'] = $reparacion->id; // Añade el ID de la reparación al array
-
+        Reparacion::insert($datos_reparacion);
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
 
+        return redirect()->route('reparaciones.index');
+
         // Dispara el evento ReparacionCreated con los datos de la reparación
-
-
-        return response()->view('reparacion.index', compact('reparaciones'));
     }
 
     /**
@@ -98,7 +94,7 @@ class ReparacionController extends Controller
 
 
 
-        return view('reparacion.show', compact('reparacion', 'tablas', 'clientes', 'user'));
+        return response()->view('reparacion.show', compact('reparacion', 'tablas', 'clientes', 'user'));
     }
 
     /**
@@ -114,7 +110,7 @@ class ReparacionController extends Controller
         $clientes = Cliente::all();
 
 
-        return view('reparacion.edit', compact('reparacion', 'tablas', 'clientes'));
+        return response()->view('reparacion.edit', compact('reparacion', 'tablas', 'clientes'));
     }
 
     /**
@@ -135,8 +131,7 @@ class ReparacionController extends Controller
 
 
 
-
-        return view('reparacion.index', compact('reparaciones'));
+        return redirect()->route('reparaciones.index');
     }
 
     /**

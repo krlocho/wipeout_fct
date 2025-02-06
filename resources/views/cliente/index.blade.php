@@ -28,7 +28,6 @@
                         </thead>
                         <tbody>
                             @foreach ($clientes as $cliente)
-                            @if ($cliente->user_id == auth()->user()->id)
 
                                 <tr>
                                     <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $cliente->id }}</td>
@@ -55,7 +54,6 @@
                                         </form>
                                     </td>
                                 </tr>
-                                @endif
                             @endforeach
                         </tbody>
 

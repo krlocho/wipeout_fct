@@ -11,6 +11,7 @@ use App\Events\ReparacionUpdated;
 class Reparacion extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'User_id',
         'Tabla_id',
@@ -37,21 +38,22 @@ class Reparacion extends Model
 
     public function users()
     {
-        return $this->belongsTo('App\Models\User', 'User_id');
+        return $this->belongsTo(User::class);
     }
 
 
 
-//ACCESORES
+    //ACCESORES
     public function get_cliente_name()
     {
         if ($this->clientes) { // Verifica si el cliente existe
-            return ucwords($this->clientes->Nombre." ".$this->clientes->Apellido);
+            return ucwords($this->clientes->Nombre . " " . $this->clientes->Apellido);
         } else {
             // El cliente no existe. Puedes manejar este caso como prefieras.
             // Por ejemplo, podrías devolver una cadena vacía o un mensaje de error:
             return 'Cliente no encontrado';
-        }    }
+        }
+    }
 
     public static function getReparacionMayusculas()
     {
@@ -66,6 +68,10 @@ class Reparacion extends Model
             return $item;
         });
         return $reparaciones;
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
     //EVENTOS
     protected static function boot()
@@ -82,5 +88,4 @@ class Reparacion extends Model
             };
         });
     }
-
 }

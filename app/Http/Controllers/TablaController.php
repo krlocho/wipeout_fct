@@ -29,7 +29,7 @@ class TablaController extends Controller
      */
     public function create()
     {
-        return view('tabla.create');
+        return response()->view('tabla.create');
     }
 
     /**
@@ -46,6 +46,7 @@ class TablaController extends Controller
 
 
         $datos_tabla = $request->except('_token');
+        $datos_tabla['user_id'] = Auth::id();
         Tabla::insert($datos_tabla);
         return redirect()->route('tablas.index');
     }
@@ -58,7 +59,7 @@ class TablaController extends Controller
      */
     public function show(Tabla $tabla)
     {
-        //
+        return response()->view('tabla.show', compact('tabla'));
     }
 
     /**
@@ -70,7 +71,7 @@ class TablaController extends Controller
     public function edit($id)
     {
         $tabla = Tabla::findOrFail($id);
-        return view('tabla.edit', compact('tabla'));
+        return response()->view('tabla.edit', compact('tabla'));
     }
 
     /**
@@ -86,7 +87,7 @@ class TablaController extends Controller
         Tabla::where('id', '=', $id)->update($datos_tabla);
         $tabla = Tabla::findOrFail($id);
 
-        return redirect('tablas');
+        return redirect()->route('tablas.index');
     }
 
     /**
@@ -98,6 +99,6 @@ class TablaController extends Controller
     public function destroy($id)
     {
         Tabla::destroy($id);
-        return redirect('tablas');
+        return redirect()->route('tablas.index');
     }
 }
