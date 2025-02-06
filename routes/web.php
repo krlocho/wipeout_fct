@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/tablas', TablaController::class);
     Route::resource('/clientes', ClienteController::class);
     Route::resource('/reparaciones', ReparacionController::class);
+    Route::get('/reparaciones/estado/{estado}', [ReparacionController::class, 'filtrarPorEstado'])->name('reparaciones.estado');
 });
 
 

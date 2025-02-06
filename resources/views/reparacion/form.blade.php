@@ -40,8 +40,8 @@
                         <label for="Estado">Estado</label>
                         <select name="Estado" id="Estado"class="rounded-lg">
 
-                            <option value="en-proceso">En Proceso</option>
                             <option value="sin-empezar">Sin Empezar</option>
+                            <option value="en-proceso">En Proceso</option>
                             <option value="terminado">Terminado</option>
 
                         </select>
