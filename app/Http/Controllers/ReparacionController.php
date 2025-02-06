@@ -165,4 +165,13 @@ class ReparacionController extends Controller
             'notStartedRepairs' => $notStartedRepairs,
         ]);
     }
+    public function filtrarPorEstado($estado)
+    {
+        $user_id = Auth::id();
+        $reparaciones = Reparacion::where('user_id', $user_id)
+            ->where('estado', $estado)
+            ->get();
+
+        return view('reparacion.index', compact('reparaciones'));
+    }
 }
