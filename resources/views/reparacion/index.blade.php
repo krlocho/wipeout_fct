@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                             @foreach ($reparaciones as $reparacion)
-                                @if ($reparacion->user_id == auth()->user()->id)
+
                                     <tr>
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->id }}</td>
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->tablas->Modelo }}</td>
@@ -68,7 +68,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endif
+
                             @endforeach
 
                         </tbody>

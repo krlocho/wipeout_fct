@@ -28,7 +28,8 @@ class ReparacionController extends Controller
     public function index()
 
     {
-        $reparaciones = Reparacion::getReparacionMayusculas();
+        $user_id = Auth::id();
+        $reparaciones = Reparacion::where('user_id', $user_id)->get();
 
 
 
@@ -65,14 +66,12 @@ class ReparacionController extends Controller
     public function store(StoreReparacionRequest $request)
     {
         $datos_reparacion = $request->except('_token');
-        $datos_reparacion['User_id'] = auth()->id();
+        $datos_reparacion['user_id'] = Auth::id();
 
-
-
-        $reparacion = Reparacion::create($datos_reparacion);
-        $datos_reparacion['id'] = $reparacion->id; // Añade el ID de la reparación al array
-
+        Reparacion::insert($datos_reparacion);
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
+
+        return view('reparacion.index', compact('reparaciones'));
 
         // Dispara el evento ReparacionCreated con los datos de la reparación
 

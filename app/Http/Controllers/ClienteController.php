@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class ClienteController extends Controller
@@ -17,7 +18,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::getClienteMayusculas();
+        $user_id = Auth::id();
+        $clientes = Cliente::where('user_id', $user_id)->get();
 
 
         return view('cliente.index', compact('clientes'));
@@ -43,6 +45,8 @@ class ClienteController extends Controller
     {
 
         $datos_cliente = $request->except('_token');
+        $datos_cliente['user_id'] = Auth::id();
+
         Cliente::insert($datos_cliente);
         $clientes = Cliente::orderBy('id', 'desc')->get();
 
@@ -68,7 +72,7 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $cliente=Cliente::findOrFail($id);
+        $cliente = Cliente::findOrFail($id);
         return view('cliente.edit', compact('cliente'));
     }
 
@@ -81,12 +85,11 @@ class ClienteController extends Controller
      */
     public function update(UpdateClienteRequest $request,  $id)
     {
-        $datos_cliente=$request->except('_token','_method');
-        Cliente::where('id','=',$id)->update($datos_cliente);
-        $cliente=Cliente::findOrFail($id);
+        $datos_cliente = $request->except('_token', '_method');
+        Cliente::where('id', '=', $id)->update($datos_cliente);
+        $cliente = Cliente::findOrFail($id);
 
         return redirect('clientes');
-
     }
 
     /**
@@ -95,10 +98,9 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         Cliente::destroy($id);
         return redirect('clientes');
-
     }
 }
