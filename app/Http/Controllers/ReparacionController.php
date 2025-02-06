@@ -123,11 +123,18 @@ class ReparacionController extends Controller
     public function update(UpdateReparacionRequest $request, $id)
     {
         $datos_reparacion = $request->except('_token', '_method');
-        Reparacion::where('id', '=', $id)->update($datos_reparacion);
-        $reparacion = Reparacion::findOrFail($id);
         $tablas = Tabla::all();
         $clientes = Cliente::all();
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
+
+
+        // Asignar la fecha de salida si el estado es "terminado"
+        if ($datos_reparacion['Estado'] === 'terminado') {
+            $datos_reparacion['Fecha_salida'] = now();
+        }
+
+        Reparacion::where('id', '=', $id)->update($datos_reparacion);
+        $reparacion = Reparacion::findOrFail($id);
 
 
 

@@ -40,9 +40,9 @@
                         <label for="Estado">Estado</label>
                         <select name="Estado" id="Estado"class="rounded-lg">
 
-                            <option value="sin-empezar">Sin Empezar</option>
-                            <option value="en-proceso">En Proceso</option>
-                            <option value="terminado">Terminado</option>
+                            <option value="sin-empezar" {{ (isset($reparacion) && $reparacion->Estado == 'sin-empezar') ? 'selected' : '' }}>Sin Empezar</option>
+                            <option value="en-proceso" {{ (isset($reparacion) && $reparacion->Estado == 'en-proceso') ? 'selected' : '' }}>En Proceso</option>
+                            <option value="terminado" {{ (isset($reparacion) && $reparacion->Estado == 'terminado') ? 'selected' : '' }}>Terminado</option>
 
                         </select>
                         <br>
