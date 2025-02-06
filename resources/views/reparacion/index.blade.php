@@ -34,43 +34,43 @@
                         </thead>
                         <tbody>
                             @foreach ($reparaciones as $reparacion)
-                                <tr>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->id }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->tablas->Modelo }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->get_cliente_name()}}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Reparacion }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Fecha_llegada }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Fecha_salida }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Estado }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Precio }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Observaciones }}</td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
-                                        <a href='{{ url('reparaciones/pdf') }}'
-                                            class="px-4 py-1 mb-2 font-semibold font-bold leading-tight text-white text-gray-800 bg-green-600 rounded-full right-20 hover:bg-green-700">
-                                            pdf </a>
-                                    </td>
+                                @if ($reparacion->user_id == auth()->user()->id)
+                                    <tr>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->id }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->tablas->Modelo }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->get_cliente_name()}}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Reparacion }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Fecha_llegada }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Fecha_salida }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Estado }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Precio }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Observaciones }}</td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
+                                            <a href='{{ url('reparaciones/pdf') }}'
+                                                class="px-4 py-1 mb-2 font-semibold font-bold leading-tight text-white text-gray-800 bg-green-600 rounded-full right-20 hover:bg-green-700">
+                                                pdf </a>
+                                        </td>
 
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
-                                        <form action="{{ url('/reparaciones/' . $reparacion->id . '/edit') }}">
-                                            <button
-                                                class="px-4 py-1 font-semibold bg-transparent border rounded text-neutral-900 border-neutral-900 hover:bg-neutral-900 hover:text-white hover:border-transparent">
-                                                Editar </button>
-                                        </form>
-                                        </button>
-                                    </td>
-                                    <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
-                                        <form action="{{ url('/reparaciones/' . $reparacion->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                class="px-4 py-1 font-bold text-white bg-red-600 rounded-full hover:bg-red-700">
-                                                Borrar</button>
-                                        </form>
-                                    </td>
-
-
-                                </tr>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
+                                            <form action="{{ url('/reparaciones/' . $reparacion->id . '/edit') }}">
+                                                <button
+                                                    class="px-4 py-1 font-semibold bg-transparent border rounded text-neutral-900 border-neutral-900 hover:bg-neutral-900 hover:text-white hover:border-transparent">
+                                                    Editar </button>
+                                            </form>
+                                        </td>
+                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
+                                            <form action="{{ url('/reparaciones/' . $reparacion->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    class="px-4 py-1 font-bold text-white bg-red-600 rounded-full hover:bg-red-700">
+                                                    Borrar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
+
                         </tbody>
 
                     </table>

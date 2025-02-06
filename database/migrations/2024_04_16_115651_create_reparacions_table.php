@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('reparacions', function (Blueprint $table) {
             $table->id();
+
+
             $table->string('Reparacion');
             $table->integer('Precio')->nullable();
             $table->date('Fecha_llegada');
             $table->date('Fecha_salida')->nullable();
             $table->string('Estado')->default('Pendiente');
             $table->string('Observaciones')->nullable();
+
+
 
 
 

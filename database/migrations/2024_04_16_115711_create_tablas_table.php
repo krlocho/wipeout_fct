@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreign('Cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->unsignedBigInteger('Reparacion_id')->nullable();
             $table->foreign('Reparacion_id')->references('id')->on('reparacions')->onDelete('cascade');
+
+
             //FOREIGN KEY ENDS
 
             $table->timestamps();

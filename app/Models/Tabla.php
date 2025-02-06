@@ -19,6 +19,11 @@ class Tabla extends Model
         });
         return $tablas;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function clientes()
     {
         return $this->hasMany(Tabla::class, 'Tabla_id', 'id');

@@ -53,7 +53,7 @@ class ReparacionController extends Controller
 
 
         //$tablas=Tabla::pluck('Modelo,','id');
-        return view('reparacion.create' , compact('tablas','clientes'));
+        return view('reparacion.create', compact('tablas', 'clientes'));
     }
 
     /**
@@ -69,8 +69,9 @@ class ReparacionController extends Controller
 
 
 
-        $reparacion= Reparacion::create($datos_reparacion);
+        $reparacion = Reparacion::create($datos_reparacion);
         $datos_reparacion['id'] = $reparacion->id; // Añade el ID de la reparación al array
+
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
 
         // Dispara el evento ReparacionCreated con los datos de la reparación
@@ -85,11 +86,11 @@ class ReparacionController extends Controller
      * @param  \App\Models\Reparacion  $reparacion
      * @return \Illuminate\Http\Response
      */
-    public function show( Request $request)
+    public function show(Request $request)
     {
         $reparacion = Reparacion::where('id', $request->id)
-        ->where('user_id', $request->user_id)
-        ->firstOrFail();
+            ->where('user_id', $request->user_id)
+            ->firstOrFail();
 
         $tablas = Tabla::all();
         $clientes = Cliente::all();
@@ -97,7 +98,7 @@ class ReparacionController extends Controller
 
 
 
-        return view('reparacion.show', compact('reparacion','tablas','clientes','user'));
+        return view('reparacion.show', compact('reparacion', 'tablas', 'clientes', 'user'));
     }
 
     /**
@@ -108,12 +109,12 @@ class ReparacionController extends Controller
      */
     public function edit($id)
     {
-        $reparacion=Reparacion::findOrFail($id);
+        $reparacion = Reparacion::findOrFail($id);
         $tablas = Tabla::all();
         $clientes = Cliente::all();
 
 
-        return view('reparacion.edit', compact('reparacion','tablas','clientes'));
+        return view('reparacion.edit', compact('reparacion', 'tablas', 'clientes'));
     }
 
     /**
@@ -125,9 +126,9 @@ class ReparacionController extends Controller
      */
     public function update(UpdateReparacionRequest $request, $id)
     {
-        $datos_reparacion = $request->except('_token','_method');
-        Reparacion::where('id','=', $id)->update($datos_reparacion);
-        $reparacion=Reparacion::findOrFail($id);
+        $datos_reparacion = $request->except('_token', '_method');
+        Reparacion::where('id', '=', $id)->update($datos_reparacion);
+        $reparacion = Reparacion::findOrFail($id);
         $tablas = Tabla::all();
         $clientes = Cliente::all();
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
@@ -144,15 +145,29 @@ class ReparacionController extends Controller
      * @param  \App\Models\Reparacion  $reparacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         Reparacion::destroy($id);
         return redirect('reparaciones')->with('success', 'Reparación eliminada');
     }
     public function email($id)
-{
-    $cliente = Cliente::find($id);
+    {
+        $cliente = Cliente::find($id);
 
-    return view('email.reparacion_created', ['cliente' => $cliente]);
-}
+        return view('email.reparacion_created', ['cliente' => $cliente]);
+    }
+    public function dashboard()
+    {
+        // Obtener las reparaciones del usuario autenticado
+        $user_id = Auth::id();
+        $completedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'terminado')->count();
+        $inProgressRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'en-proceso')->count();
+        $notStartedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'sin-empezar')->count();
+
+        return view('dashboard', [
+            'completedRepairs' => $completedRepairs,
+            'inProgressRepairs' => $inProgressRepairs,
+            'notStartedRepairs' => $notStartedRepairs,
+        ]);
+    }
 }

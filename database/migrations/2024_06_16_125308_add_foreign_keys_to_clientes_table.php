@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreign('Tabla_id')->references('id')->on('tablas')->onDelete('cascade');
             $table->unsignedBigInteger('Reparacion_id')->nullable();
             $table->foreign('Reparacion_id')->references('id')->on('reparacions')->onDelete('cascade');
+            $table->bigInteger('User_id')->unsigned()->nullable();
+            $table->foreign('User_id')->references('id')->on('users')->onDelete('cascade');
+
+
             //FOREIGN KEY ENDS
         });
     }
@@ -29,6 +33,7 @@ return new class extends Migration
         Schema::table('clientes', function (Blueprint $table) {
             $table->dropForeign(['Tabla_id']);
             $table->dropForeign(['Reparacion_id']);
+            $table->dropForeign(['User_id']);
         });
     }
 };

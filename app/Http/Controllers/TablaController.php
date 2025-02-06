@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTablaRequest;
 use App\Http\Requests\UpdateTablaRequest;
 use App\Models\Tabla;
+use Illuminate\Support\Facades\Auth;
 
 class TablaController extends Controller
 {
@@ -15,7 +16,9 @@ class TablaController extends Controller
      */
     public function index()
     {
-        $tablas= Tabla::getTablaMayusculas();
+        $user_id = Auth::id();
+        $tablas = Tabla::where('user_id', $user_id)->get();
+
         return response()->view('tabla.index', compact('tablas'));
     }
 
@@ -42,10 +45,9 @@ class TablaController extends Controller
     {
 
 
-        $datos_tabla= $request->except('_token');
+        $datos_tabla = $request->except('_token');
         Tabla::insert($datos_tabla);
         return redirect()->route('tablas.index');
-
     }
 
     /**
@@ -67,8 +69,8 @@ class TablaController extends Controller
      */
     public function edit($id)
     {
-        $tabla=Tabla::findOrFail($id);
-        return view('tabla.edit',compact('tabla'));
+        $tabla = Tabla::findOrFail($id);
+        return view('tabla.edit', compact('tabla'));
     }
 
     /**
@@ -80,9 +82,9 @@ class TablaController extends Controller
      */
     public function update(UpdateTablaRequest $request, $id)
     {
-        $datos_tabla=$request->except('_token','_method');
-        Tabla::where('id','=',$id)->update($datos_tabla);
-        $tabla=Tabla::findOrFail($id);
+        $datos_tabla = $request->except('_token', '_method');
+        Tabla::where('id', '=', $id)->update($datos_tabla);
+        $tabla = Tabla::findOrFail($id);
 
         return redirect('tablas');
     }

@@ -25,7 +25,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tablas as $tabla)
+                            @foreach ($tablas as $tabla )
+
                                 <tr>
                                     <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $tabla->id }}</td>
                                     <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $tabla->Modelo }} </td>{{-- ->Modelo or 'Sin Autor' --}}
@@ -51,6 +52,7 @@
                                         </form>
                                     </td>
                                 </tr>
+
                             @endforeach
                         </tbody>
 
