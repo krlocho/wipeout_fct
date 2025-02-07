@@ -28,9 +28,7 @@
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="grid items-center grid-cols-2 gap-2 py-10 lg:grid-cols-3">
                     <div class="flex lg:justify-center lg:col-start-2">
-                        <a href="/">
                             <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
-                        </a>
                     </div>
                     @if (Route::has('login'))
                         <nav class="flex justify-end flex-1 -mx-3">

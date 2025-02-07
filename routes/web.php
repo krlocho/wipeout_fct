@@ -15,7 +15,7 @@ Route::get('/', function () {
     $users = User::all(['latitud', 'longitud', 'name', 'phone', 'email']);
 
     return view('/welcome', ['users' => $users]);
-});
+})->name('welcome');
 
 Route::get('/buscar_reparaciones', [ReparacionController::class, 'show'])->name('reparaciones.buscar');
 
