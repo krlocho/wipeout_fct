@@ -84,6 +84,18 @@ class ReparacionController extends Controller
      */
     public function show(Request $request)
     {
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:reparacions,id',
+            'user_id' => 'required|integer|exists:users,id',
+        ], [
+            'id.required' => 'El id de la reparación es requerido',
+            'id.integer' => 'El id de la reparación debe ser un número entero',
+            'id.exists'  => 'El id de la reparación no es correcto',
+            'user_id.required' => 'El id del usuario es requerido',
+            'user_id.integer' => 'El id del usuario debe ser un número entero',
+            'user_id.exists' => 'El id del usuario no es correcto',
+        ]);
+
         $reparacion = Reparacion::where('id', $request->id)
             ->where('user_id', $request->user_id)
             ->firstOrFail();
@@ -166,10 +178,28 @@ class ReparacionController extends Controller
         $inProgressRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'en-proceso')->count();
         $notStartedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'sin-empezar')->count();
 
+        // Obtener las reparaciones por mes
+        $reparacionPorMes = Reparacion::selectRaw('COUNT(*) as count, MONTH(Fecha_llegada) as month')
+            ->where('user_id', $user_id)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get()
+            ->pluck('count', 'month')
+            ->toArray();
+
+        $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        $datos = [];
+
+        foreach ($meses as $index => $mes) {
+            $datos[] = $reparacionPorMes[$index + 1] ?? 0;
+        }
+
         return view('dashboard', [
             'completedRepairs' => $completedRepairs,
             'inProgressRepairs' => $inProgressRepairs,
             'notStartedRepairs' => $notStartedRepairs,
+            'datos' => $datos,
+            'meses' => $meses,
         ]);
     }
     public function filtrarPorEstado($estado)

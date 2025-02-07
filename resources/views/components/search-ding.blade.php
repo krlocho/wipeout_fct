@@ -14,14 +14,25 @@
                             <div class="flex flex-col gap-3 pt-3 sm:pt-5">
                                 <h2 class="text-xl font-semibold text-black dark:text-white">Comprueba el estado de tu
                                     reparacion</h2>
+                                    <div id="error-message" class="text-red-500"></div>
+
 
                                 <form method="GET" class="flex flex-col gap-3 " action="{{ route('reparaciones.buscar') }}">
                                     <input type="text" class="w-full p-2 rounded-lg border-grey" id="id"
                                         name="id" placeholder="Introduce el ID de la reparación">
                                     <input type="text" class="w-full p-2 rounded-lg border-grey" id="user_id"
                                         name="user_id" placeholder="Introduce el ID del usuario">
-                                    <button type="submit" class="px-4 rounded-lg dark:bg-white dark:text-black hover:bg-red-500 hover:transition hover:delay-150 hover:duration-300 w-fit">Buscar reparación</button>
+                                    <button type="submit" class="px-4 text-white bg-red-600 border-2 border-red-600 rounded-lg hover:bg-white hover:text-red-600 hover:border-2 hover:transition hover:delay-150 hover:duration-300 w-fit" id="searchButton">Buscar reparación</button>
                                 </form>
+                                @if ($errors->any())
+                                <div class="text-red-500 alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li class="list-disc">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             </div>
 
                         </div>
