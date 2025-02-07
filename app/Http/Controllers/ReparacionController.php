@@ -61,7 +61,7 @@ class ReparacionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreReparacionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\View
      */
     public function store(StoreReparacionRequest $request)
     {
@@ -80,7 +80,7 @@ class ReparacionController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Reparacion  $reparacion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\View
      */
     public function show(Request $request)
     {
@@ -96,9 +96,15 @@ class ReparacionController extends Controller
             'user_id.exists' => 'El id del usuario no es correcto',
         ]);
 
-        $reparacion = Reparacion::where('id', $request->id)
-            ->where('user_id', $request->user_id)
-            ->firstOrFail();
+        try {
+            $reparacion = Reparacion::where('id', $request->id)
+                ->where('user_id', $request->user_id)
+                ->firstOrFail();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->withErrors([
+                'id' => 'La reparación no fue encontrada o no pertenece al usuario.',
+            ]);
+        }
 
         $tablas = Tabla::all();
         $clientes = Cliente::all();
