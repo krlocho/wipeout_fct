@@ -27,7 +27,7 @@ class ReparacionFactory extends Factory
             'Reparacion' => $this->faker->word,
             'Fecha_llegada' => $this->faker->date(),
             'Precio' => $this->faker->randomNumber(2),
-            'Estado' => $this->faker->randomElement(['Finalizada', 'En proceso', 'Sin empezar']),
+            'Estado' => $this->faker->randomElement(['Terminado', 'En proceso', 'Sin empezar']),
             'Cliente_id' => Cliente::inRandomOrder()->first()->id,
             'Tabla_id' => Tabla::inRandomOrder()->first()->id, // Usa un usuario existente
             'User_id' => User::inRandomOrder()->first()->id, // Usa un usuario existente
