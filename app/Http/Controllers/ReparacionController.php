@@ -147,7 +147,7 @@ class ReparacionController extends Controller
 
 
         // Asignar la fecha de salida si el estado es "terminado"
-        if ($datos_reparacion['Estado'] === 'terminado') {
+        if ($datos_reparacion['Estado'] === 'Terminado') {
             $datos_reparacion['Fecha_salida'] = now();
         }
 
@@ -180,9 +180,9 @@ class ReparacionController extends Controller
     {
         // Obtener las reparaciones del usuario autenticado
         $user_id = Auth::id();
-        $completedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'terminado')->count();
-        $inProgressRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'en-proceso')->count();
-        $notStartedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'sin-empezar')->count();
+        $completedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'Terminado')->count();
+        $inProgressRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'En Proceso')->count();
+        $notStartedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'Sin Empezar')->count();
 
         // Obtener las reparaciones por mes
         $reparacionPorMes = Reparacion::selectRaw('COUNT(*) as count, MONTH(Fecha_llegada) as month')
