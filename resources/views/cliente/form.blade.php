@@ -26,8 +26,18 @@
                     <br>
 
                     <input
-                        class="px-4 py-1 mb-2 font-semibold font-bold leading-tight text-white text-gray-800 bg-green-600 rounded-full grid-justify-items-end right-20 hover:bg-green-700"
+                        class="px-4 py-1 mb-2 font-semibold leading-tight text-white bg-green-600 rounded-full grid-justify-items-end right-20 hover:bg-green-700"
                         type="submit" value="Enviar">
+
+                        @if ($errors->any())
+                            <div class="mb-4">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li class="text-red-600">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
 
 

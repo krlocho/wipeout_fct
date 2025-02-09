@@ -27,8 +27,18 @@ class StoreClienteRequest extends FormRequest
             'Nombre' => 'required|max:50',
             'Apellido' => 'required|max:50',
             'Direccion' => 'required|max:100',
-            'Telefono' => 'required|max:10',
-            'Email' => 'required|max:50',
+            'Telefono' => 'required|max:20',
+            'Email' => 'required|email:rfc,dns|max:50',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'Nombre.required' => 'El campo nombre es obligatorio',
+            'Email.required' => 'El campo email es obligatorio',
+            'Email.email' => 'El campo email debe ser un email válido y contener un punto',
+            'Email.unique' => 'El email ya está en uso',
+            'Telefono.max' => 'El campo teléfono no puede tener más de 20 caracteres',
         ];
     }
 }
