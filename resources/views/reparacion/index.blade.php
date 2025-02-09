@@ -12,7 +12,7 @@
                     <table id="tabla" class="w-full table-auto">
                         <div class="grid justify-items-end">
                             <a href='{{ url('reparaciones/create') }}'
-                                class="px-4 py-1 mb-2 font-semibold font-bold leading-tight text-white text-gray-800 bg-green-600 rounded-full right-20 hover:bg-green-700">
+                                class="px-4 py-1 mb-2 font-semibold leading-tight text-white  bg-green-600 rounded-full right-20 hover:bg-green-700">
                                 Nueva </a>
                         </div>
 
@@ -45,11 +45,7 @@
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Estado }}</td>
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Precio }}</td>
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">{{ $reparacion->Observaciones }}</td>
-                                        <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
-                                            <a href='{{ url('reparaciones/pdf') }}'
-                                                class="px-4 py-1 mb-2 font-semibold font-bold leading-tight text-white text-gray-800 bg-green-600 rounded-full right-20 hover:bg-green-700">
-                                                pdf </a>
-                                        </td>
+
 
                                         <td class="px-4 py-2 text-center text-gray-900 border dark:text-white">
                                             <form action="{{ url('/reparaciones/' . $reparacion->id . '/edit') }}">

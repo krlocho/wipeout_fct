@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Tabla;
+use App\Models\Reparacion;
+use App\Models\Cliente;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +18,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Crear 10 usuarios
+
+        // Crear 10 tablas
+        Tabla::factory(10)->create();
+
+        // Crear 20 reparaciones
+
+
+        // Crear 10 clientes
+        Cliente::factory(10)->create();
+
+        Reparacion::factory(20)->create();
     }
 }

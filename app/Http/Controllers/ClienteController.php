@@ -44,8 +44,11 @@ class ClienteController extends Controller
     public function store(StoreClienteRequest $request)
     {
 
+
         $datos_cliente = $request->except('_token');
         $datos_cliente['user_id'] = Auth::id();
+
+
 
         Cliente::insert($datos_cliente);
         $clientes = Cliente::orderBy('id', 'desc')->get();
@@ -83,7 +86,7 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClienteRequest $request,  $id)
+    public function update(StoreClienteRequest $request,  $id)
     {
         $datos_cliente = $request->except('_token', '_method');
         Cliente::where('id', '=', $id)->update($datos_cliente);

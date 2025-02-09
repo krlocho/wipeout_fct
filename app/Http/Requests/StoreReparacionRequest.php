@@ -24,6 +24,9 @@ class StoreReparacionRequest extends FormRequest
     public function rules()
     {
         return [
+            'Fecha_llegada' => 'required|date',
+            'Precio' => 'required|numeric',
+            'Reparacion' => 'required|max:255',
 
 
 
