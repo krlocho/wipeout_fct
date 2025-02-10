@@ -19,7 +19,7 @@ class ClienteController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $clientes = Cliente::where('user_id', $user_id)->get();
+        $clientes = Cliente::where('User_id', $user_id)->get();
 
 
         return view('cliente.index', compact('clientes'));

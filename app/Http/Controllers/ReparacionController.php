@@ -29,7 +29,7 @@ class ReparacionController extends Controller
 
     {
         $user_id = Auth::id();
-        $reparaciones = Reparacion::where('user_id', $user_id)->get();
+        $reparaciones = Reparacion::where('User_id', $user_id)->get();
 
 
 
@@ -66,10 +66,13 @@ class ReparacionController extends Controller
     public function store(StoreReparacionRequest $request)
     {
         $datos_reparacion = $request->except('_token');
-        $datos_reparacion['user_id'] = Auth::id();
+        $datos_reparacion['User_id'] = Auth::id();
 
-        Reparacion::insert($datos_reparacion);
+        $reparacion = Reparacion::create($datos_reparacion);
         $reparaciones = Reparacion::orderBy('id', 'desc')->get();
+
+
+
 
         return redirect()->route('reparaciones.index');
 
@@ -98,7 +101,7 @@ class ReparacionController extends Controller
 
         try {
             $reparacion = Reparacion::where('id', $request->id)
-                ->where('user_id', $request->user_id)
+                ->where('User_id', $request->user_id)
                 ->firstOrFail();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect()->back()->withErrors([
@@ -180,13 +183,13 @@ class ReparacionController extends Controller
     {
         // Obtener las reparaciones del usuario autenticado
         $user_id = Auth::id();
-        $completedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'Terminado')->count();
-        $inProgressRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'En Proceso')->count();
-        $notStartedRepairs = Reparacion::where('user_id', $user_id)->where('estado', 'Sin Empezar')->count();
+        $completedRepairs = Reparacion::where('User_id', $user_id)->where('estado', 'Terminado')->count();
+        $inProgressRepairs = Reparacion::where('User_id', $user_id)->where('estado', 'En Proceso')->count();
+        $notStartedRepairs = Reparacion::where('User_id', $user_id)->where('estado', 'Sin Empezar')->count();
 
         // Obtener las reparaciones por mes
         $reparacionPorMes = Reparacion::selectRaw('COUNT(*) as count, MONTH(Fecha_llegada) as month')
-            ->where('user_id', $user_id)
+            ->where('User_id', $user_id)
             ->groupBy('month')
             ->orderBy('month')
             ->get()
