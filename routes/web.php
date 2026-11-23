@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () { // Group routes requiring active 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy'); // Remove user profile account
 
     Route::get('/reparaciones/tablero', [ReparacionController::class, 'kanban'])->name('reparaciones.kanban'); // Interactive Kanban board route
+    Route::get('/reparaciones/{id}/ticket', [ReparacionController::class, 'imprimir_ticket'])->name('reparaciones.ticket'); // Printable workshop ticket and surfboard label
     Route::patch('/reparaciones/{id}/estado', [ReparacionController::class, 'update_estado'])->name('reparaciones.update_estado'); // Quick status update endpoint
     Route::get('/reparaciones/estado/{estado}', [ReparacionController::class, 'filtrar_por_estado'])->name('reparaciones.estado'); // Filter repairs by status
     Route::resource('/reparaciones', ReparacionController::class); // RESTful resource routes for repairs

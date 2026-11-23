@@ -91,6 +91,15 @@ class ReparacionController extends Controller { // Controller managing repair li
         return view('reparacion.show', compact('reparacion')); // Render repair details view
     } // End of show method
 
+    public function imprimir_ticket($id): View { // Render printable workshop ticket and customer claim stub
+        $user_id = Auth::id(); // Retrieve current authenticated workshop user identifier
+        $reparacion = Reparacion::where('User_id', $user_id) // Scope query strictly to workshop owner
+            ->with(['tablas', 'clientes', 'users']) // Eager load relations
+            ->findOrFail($id); // Find repair record strictly for current user
+        $qr_url = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' . urlencode(route('reparaciones.track', ['code' => $reparacion->tracking_code])); // Generate high-res QR code URL
+        return view('reparacion.ticket', compact('reparacion', 'qr_url')); // Render printable ticket blade view
+    } // End of imprimir_ticket method
+
     public function edit($id): View { // Render form to edit an existing repair
         $user_id = Auth::id(); // Retrieve current authenticated user identifier
         $reparacion = Reparacion::where('User_id', $user_id)->findOrFail($id); // Find repair enforcing tenant ownership

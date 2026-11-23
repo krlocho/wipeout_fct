@@ -36,10 +36,10 @@ class Reparacion extends Model
         return $this->belongsTo('App\Models\Tabla', 'Tabla_id', 'id');
     }
 
-    public function users()
-    {
-        return $this->belongsTo(User::class);
-    }
+    public function users() // Relationship to workshop user
+    { // Open users relation method
+        return $this->belongsTo(User::class, 'User_id', 'id'); // Link using uppercase User_id foreign key
+    } // Close users relation method
 
 
 
@@ -69,10 +69,10 @@ class Reparacion extends Model
         });
         return $reparaciones;
     }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    public function user() // Relationship to workshop user
+    { // Open user method
+        return $this->belongsTo(User::class, 'User_id', 'id'); // Scope via User_id
+    } // Close user method
     //EVENTOS
     public static function generate_tracking_code(): string { // Generate unique short uppercase tracking code
         do { // Loop until an unused random tracking token is found

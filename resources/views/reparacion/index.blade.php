@@ -47,6 +47,7 @@
                                     <td class="px-4 py-4 font-semibold text-gray-900 dark:text-white whitespace-nowrap">{{ $reparacion->Precio ? ($reparacion->Precio . ' €') : '-' }}</td> {{-- Formatted price --}}
                                     <td class="px-4 py-4 text-right whitespace-nowrap"> {{-- Actions column --}}
                                         <div class="flex items-center justify-end gap-2"> {{-- Action buttons flex --}}
+                                            <a href="{{ route('reparaciones.ticket', $reparacion->id) }}" target="_blank" class="px-2.5 py-1 text-xs font-medium text-zinc-700 bg-zinc-100 rounded-md hover:bg-zinc-200 dark:bg-zinc-700 dark:text-zinc-300">🖨️ Ticket</a> {{-- Ticket link --}}
                                             <a href="{{ route('reparaciones.edit', $reparacion->id) }}" class="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300">Editar</a> {{-- Edit link --}}
                                             <form action="{{ route('reparaciones.destroy', $reparacion->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta reparación?');"> {{-- Delete form --}}
                                                 @csrf {{-- CSRF token directive --}}

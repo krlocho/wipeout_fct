@@ -29,7 +29,10 @@
                         @forelse ($sin_empezar as $item) {{-- Loop over unstarted repairs --}}
                             <div class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700/60 hover:shadow-md transition"> {{-- Repair Card --}}
                                 <div class="flex items-center justify-between mb-2"> {{-- Card top row --}}
-                                    <span class="font-mono text-xs font-bold text-[#FF2D20] bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                    <div class="flex items-center gap-1.5"> {{-- Left tokens group --}}
+                                        <span class="font-mono text-xs font-bold text-[#FF2D20] bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                        <a href="{{ route('reparaciones.ticket', $item->id) }}" target="_blank" title="Imprimir Ticket & Etiqueta" class="text-xs hover:scale-110 transition">🖨️</a> {{-- Print shortcut --}}
+                                    </div> {{-- Close left tokens group --}}
                                     <span class="text-[11px] text-gray-400">{{ $item->Fecha_llegada }}</span> {{-- Arrival date --}}
                                 </div> {{-- Close card top row --}}
                                 @if (!empty($item->foto_url)) {{-- Check if damage inspection photo exists --}}
@@ -44,7 +47,7 @@
                                     <span class="font-bold text-gray-900 dark:text-white">{{ $item->Precio ? ($item->Precio . '€') : 'Presupuesto pend.' }}</span> {{-- Price --}}
                                 </div> {{-- Close footer metadata --}}
                                 <div class="flex items-center justify-between gap-2 mt-3 pt-2"> {{-- Quick move action bar --}}
-                                    <a href="{{ route('reparaciones.edit', $item->id) }}" class="text-xs text-gray-500 hover:underline">Detalles</a> {{-- Edit link --}}
+                                    <a href="{{ route('reparaciones.show', $item->id) }}" class="text-xs text-gray-500 hover:underline">Detalles</a> {{-- Details link --}}
                                     <form action="{{ route('reparaciones.update_estado', $item->id) }}" method="POST"> {{-- Fast move form --}}
                                         @csrf {{-- CSRF token --}}
                                         @method('PATCH') {{-- PATCH method --}}
@@ -58,6 +61,7 @@
                         @endforelse {{-- Close loop --}}
                     </div> {{-- Close cards stack --}}
                 </div> {{-- Close Column 1 --}}
+
                 <div class="bg-gray-100/70 dark:bg-zinc-900 rounded-2xl p-4 border border-gray-200/80 dark:border-zinc-800"> {{-- Column 2: En Proceso --}}
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200 dark:border-zinc-800"> {{-- Column header --}}
                         <div class="flex items-center gap-2"> {{-- Badge and title --}}
@@ -70,7 +74,10 @@
                         @forelse ($en_proceso as $item) {{-- Loop over in-progress repairs --}}
                             <div class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700/60 hover:shadow-md transition"> {{-- Repair Card --}}
                                 <div class="flex items-center justify-between mb-2"> {{-- Card top row --}}
-                                    <span class="font-mono text-xs font-bold text-[#FF2D20] bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                    <div class="flex items-center gap-1.5"> {{-- Left tokens group --}}
+                                        <span class="font-mono text-xs font-bold text-[#FF2D20] bg-red-50 dark:bg-red-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                        <a href="{{ route('reparaciones.ticket', $item->id) }}" target="_blank" title="Imprimir Ticket & Etiqueta" class="text-xs hover:scale-110 transition">🖨️</a> {{-- Print shortcut --}}
+                                    </div> {{-- Close left tokens group --}}
                                     <span class="text-[11px] text-gray-400">{{ $item->Fecha_llegada }}</span> {{-- Arrival date --}}
                                 </div> {{-- Close card top row --}}
                                 @if (!empty($item->foto_url)) {{-- Check if damage inspection photo exists --}}
@@ -104,6 +111,7 @@
                         @endforelse {{-- Close loop --}}
                     </div> {{-- Close cards stack --}}
                 </div> {{-- Close Column 2 --}}
+
                 <div class="bg-gray-100/70 dark:bg-zinc-900 rounded-2xl p-4 border border-gray-200/80 dark:border-zinc-800"> {{-- Column 3: Terminado --}}
                     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200 dark:border-zinc-800"> {{-- Column header --}}
                         <div class="flex items-center gap-2"> {{-- Badge and title --}}
@@ -116,7 +124,10 @@
                         @forelse ($terminado as $item) {{-- Loop over finished repairs --}}
                             <div class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-700/60 hover:shadow-md transition"> {{-- Repair Card --}}
                                 <div class="flex items-center justify-between mb-2"> {{-- Card top row --}}
-                                    <span class="font-mono text-xs font-bold text-green-700 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                    <div class="flex items-center gap-1.5"> {{-- Left tokens group --}}
+                                        <span class="font-mono text-xs font-bold text-green-700 bg-green-50 dark:bg-green-950/40 px-2 py-0.5 rounded">{{ $item->tracking_code }}</span> {{-- Tracking token --}}
+                                        <a href="{{ route('reparaciones.ticket', $item->id) }}" target="_blank" title="Imprimir Ticket & Etiqueta" class="text-xs hover:scale-110 transition">🖨️</a> {{-- Print shortcut --}}
+                                    </div> {{-- Close left tokens group --}}
                                     <span class="text-[11px] text-green-600 font-medium">✓ Finalizada</span> {{-- Completed flag --}}
                                 </div> {{-- Close card top row --}}
                                 @if (!empty($item->foto_url)) {{-- Check if damage inspection photo exists --}}
@@ -130,14 +141,25 @@
                                     <span>👤 {{ $item->clientes?->Nombre ?? 'Cliente' }}</span> {{-- Client name --}}
                                     <span class="font-bold text-green-700 dark:text-green-400">{{ $item->Precio ? ($item->Precio . '€') : '-' }}</span> {{-- Price --}}
                                 </div> {{-- Close footer metadata --}}
-                                <div class="flex items-center justify-between gap-2 mt-3 pt-2"> {{-- Action buttons bar --}}
+                                <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2"> {{-- Action buttons bar --}}
                                     <form action="{{ route('reparaciones.update_estado', $item->id) }}" method="POST"> {{-- Reopen repair form --}}
                                         @csrf {{-- CSRF token --}}
                                         @method('PATCH') {{-- PATCH method --}}
                                         <input type="hidden" name="estado" value="En Proceso" /> {{-- Target status --}}
                                         <button type="submit" class="px-2 py-1 text-gray-400 hover:text-gray-600 text-xs">Reabrir</button> {{-- Move button --}}
                                     </form> {{-- Close reopen form --}}
-                                    <a href="{{ route('reparaciones.track', $item->tracking_code) }}" target="_blank" class="px-2.5 py-1 text-xs font-medium text-[#FF2D20] bg-red-50 hover:bg-red-100 dark:bg-red-950/40 rounded transition">Portal Cliente ↗</a> {{-- Tracking portal link --}}
+                                    <div class="flex items-center gap-1.5"> {{-- Actions group --}}
+                                        @if (!empty($item->clientes?->Telefono)) {{-- WhatsApp button conditional --}}
+                                            @php // Calculate clean phone and text
+                                                $clean_phone = preg_replace('/[^0-9]/', '', $item->clientes->Telefono); // Clean numeric phone
+                                                $wa_msg = urlencode("¡Buenas {$item->clientes->Nombre}! Tu tabla {$item->tablas?->Modelo} ya está reparada y lista para recoger en el taller. Código: {$item->tracking_code}. Puedes ver el resultado aquí: " . route('reparaciones.track', ['code' => $item->tracking_code])); // Encode text
+                                            @endphp {{-- End PHP computation block --}}
+                                            <a href="https://wa.me/{{ $clean_phone }}?text={{ $wa_msg }}" target="_blank" class="px-2 py-1 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded transition flex items-center gap-1 shadow-sm"> {{-- WhatsApp link --}}
+                                                <span>💬</span> Avisar {{-- WhatsApp label --}}
+                                            </a> {{-- Close WhatsApp link --}}
+                                        @endif {{-- Close WhatsApp check --}}
+                                        <a href="{{ route('reparaciones.track', $item->tracking_code) }}" target="_blank" class="px-2 py-1 text-xs font-medium text-[#FF2D20] bg-red-50 hover:bg-red-100 dark:bg-red-950/40 rounded transition">Portal ↗</a> {{-- Tracking portal link --}}
+                                    </div> {{-- Close actions group --}}
                                 </div> {{-- Close action bar --}}
                             </div> {{-- Close Card --}}
                         @empty {{-- Empty state block --}}
