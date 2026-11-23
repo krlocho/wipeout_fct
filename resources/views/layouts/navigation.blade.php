@@ -12,9 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"> {{-- Dashboard nav link --}}
+                        {{ __('Dashboard') }} {{-- Dashboard title text --}}
+                    </x-nav-link> {{-- Close dashboard link --}}
+
+                    <x-nav-link :href="route('reparaciones.kanban')" :active="request()->routeIs('reparaciones.kanban')"> {{-- Kanban nav link --}}
+                        {{ __('Tablero Kanban') }} {{-- Kanban label text --}}
+                    </x-nav-link> {{-- Close kanban link --}}
 
                     <x-nav-link :href="route('tablas.index')" :active="request()->routeIs('tablas.index')">
                         {{ __('Tablas') }}
@@ -85,11 +89,23 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
+        <div class="pt-2 pb-3 space-y-1"> {{-- Mobile navigation links wrapper --}}
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"> {{-- Mobile dashboard link --}}
+                {{ __('Dashboard') }} {{-- Label --}}
+            </x-responsive-nav-link> {{-- Close dashboard link --}}
+            <x-responsive-nav-link :href="route('reparaciones.kanban')" :active="request()->routeIs('reparaciones.kanban')"> {{-- Mobile kanban link --}}
+                {{ __('Tablero Kanban') }} {{-- Label --}}
+            </x-responsive-nav-link> {{-- Close kanban link --}}
+            <x-responsive-nav-link :href="route('reparaciones.index')" :active="request()->routeIs('reparaciones.index')"> {{-- Mobile repairs link --}}
+                {{ __('Reparaciones') }} {{-- Label --}}
+            </x-responsive-nav-link> {{-- Close repairs link --}}
+            <x-responsive-nav-link :href="route('tablas.index')" :active="request()->routeIs('tablas.index')"> {{-- Mobile boards link --}}
+                {{ __('Tablas') }} {{-- Label --}}
+            </x-responsive-nav-link> {{-- Close boards link --}}
+            <x-responsive-nav-link :href="route('clientes.index')" :active="request()->routeIs('clientes.index')"> {{-- Mobile clients link --}}
+                {{ __('Clientes') }} {{-- Label --}}
+            </x-responsive-nav-link> {{-- Close clients link --}}
+        </div> {{-- Close wrapper --}}
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">

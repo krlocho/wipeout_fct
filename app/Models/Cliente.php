@@ -7,7 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    protected $fillable = ['Nombre', 'Email', 'Telefono', 'user_id'];
+    protected $fillable = [ // List mass-assignable attributes for client model
+        'Nombre', // First name of the client
+        'Apellido', // Last name of the client
+        'Direccion', // Address of the client
+        'Telefono', // Phone number of the client
+        'Email', // Email address of the client
+        'User_id', // Foreign key referencing the owning workshop user
+        'user_id', // Fallback alias for user id column
+    ]; // Close fillable attribute list
 
     use HasFactory;
     public static function getClienteMayusculas()

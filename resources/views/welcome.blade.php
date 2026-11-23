@@ -3,11 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
-
-
-    <title>Wipeout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {{-- Responsive viewport setting --}}
+    <title>Wipeout | Gestión y Seguimiento de Reparación de Tablas de Surf</title> {{-- Enhanced page title --}}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

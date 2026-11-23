@@ -1,31 +1,26 @@
-<?php
+<?php // PHP opening tag
 
-namespace App\Http\Requests;
+namespace App\Http\Requests; // Namespace declaration for form requests
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest; // Import base FormRequest class
 
-class StoreTablaRequest extends FormRequest
-{
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
+class StoreTablaRequest extends FormRequest { // Form request for surfboard creation
+    public function authorize(): bool { // Check authorization status
+        return true; // Allow authenticated requests
+    } // End of authorize method
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
-    {
-        return [
-            'Modelo' => 'required|max:255',
-            'Marca' => 'required|max:255',
-        ];
-    }
-}
+    public function rules(): array { // Define input validation rules
+        return [ // Return associative validation rules
+            'Modelo' => ['required', 'string', 'max:100'], // Require surfboard model name
+            'Marca' => ['required', 'string', 'max:100'], // Require shaper brand name
+            'Color' => ['nullable', 'string', 'max:50'], // Optional color or design string
+        ]; // Close rules array
+    } // End of rules method
+
+    public function messages(): array { // Define user-friendly validation messages
+        return [ // Return custom message dictionary
+            'Modelo.required' => 'El modelo de la tabla es obligatorio.', // Missing model message
+            'Marca.required' => 'La marca o shaper es obligatorio.', // Missing brand message
+        ]; // Close messages array
+    } // End of messages method
+} // End of StoreTablaRequest class

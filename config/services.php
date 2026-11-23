@@ -31,11 +31,12 @@ return [
         ],
     ],
 
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
-    ],
+    'google' => [ // Google cloud configuration block
+        'client_id' => env('GOOGLE_CLIENT_ID'), // OAuth client identifier
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'), // OAuth client secret key
+        'redirect' => env('GOOGLE_REDIRECT'), // OAuth redirect URL callback
+        'maps_api_key' => env('GOOGLE_MAPS_API_KEY', ''), // Google Maps JavaScript API key
+    ], // Close google configuration block
 
 
 ];

@@ -34,10 +34,10 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'latitud' => ['required', 'numeric', 'between:-90,90'],
-            'longitud' => ['required', 'numeric', 'between:-180,180'],
-            'phone' => ['required', 'string',],
-        ]);
+            'latitud' => ['nullable', 'numeric', 'between:-90,90'], // Allow optional latitude on registration
+            'longitud' => ['nullable', 'numeric', 'between:-180,180'], // Allow optional longitude on registration
+            'phone' => ['nullable', 'string', 'max:50'], // Allow optional phone on initial registration
+        ]); // Complete input validation
 
         $user = User::create([
             'name' => $request->name,

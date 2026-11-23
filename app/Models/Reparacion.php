@@ -11,19 +11,19 @@ use App\Events\ReparacionUpdated;
 class Reparacion extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'User_id',
-        'Tabla_id',
-        'Cliente_id',
-        'Reparacion',
-        'Observaciones',
-        'Estado',
-        'Fecha_llegada',
-        'Fecha_salida',
-
-        // Agrega aquí cualquier otro atributo que quieras asignar masivamente
-    ];
+    protected $fillable = [ // Declare mass-assignable attributes list
+        'User_id', // Foreign key referencing workshop owner user
+        'Tabla_id', // Foreign key referencing surfboard
+        'Cliente_id', // Foreign key referencing client owner
+        'tracking_code', // Public unique tracking token for external lookup
+        'Reparacion', // Description of requested repair work
+        'Observaciones', // Workshop notes and extra observations
+        'Estado', // Current status (Sin Empezar, En Proceso, Terminado)
+        'Precio', // Price charged for the repair
+        'Fecha_llegada', // Date surfboard was delivered to workshop
+        'Fecha_salida', // Date surfboard was completed or collected
+        'foto_url', // File storage path to damage inspection photo
+    ]; // Close fillable array definition
 
     //DEFINIENDO RELACIONES
 
@@ -74,18 +74,27 @@ class Reparacion extends Model
         return $this->belongsTo(User::class);
     }
     //EVENTOS
-    protected static function boot()
-    {
-        parent::boot();
-        //Envio de correo
-        static::created(function ($reparacion) {
-            event(new ReparacionCreated($reparacion));
-        });
-
-        static::updated(function ($reparacion) {
-            if ($reparacion->isDirty('estado')) {
-                event(new ReparacionUpdated($reparacion));
-            };
-        });
-    }
-}
+    public static function generate_tracking_code(): string { // Generate unique short uppercase tracking code
+        do { // Loop until an unused random tracking token is found
+            $random_chars = strtoupper(substr(bin2hex(random_bytes(4)), 0, 6)); // Create 6 character random hex string
+            $candidate_code = 'WP-' . $random_chars; // Prefix token with WP designator
+        } while (static::where('tracking_code', $candidate_code)->exists()); // Ensure uniqueness in database table
+        return $candidate_code; // Return guaranteed unique tracking code
+    } // End of generate_tracking_code method
+    protected static function boot() { // Register Eloquent lifecycle model events
+        parent::boot(); // Call parent boot implementation
+        static::creating(function ($reparacion) { // Hook triggered right before model creation
+            if (empty($reparacion->tracking_code)) { // Check if tracking code has not yet been set
+                $reparacion->tracking_code = static::generate_tracking_code(); // Auto-assign a unique random tracking code
+            } // Close empty tracking code conditional
+        }); // Close creating model event listener
+        static::created(function ($reparacion) { // Hook triggered after record is saved in database
+            event(new ReparacionCreated($reparacion)); // Dispatch custom ReparacionCreated domain event
+        }); // Close created event listener
+        static::updated(function ($reparacion) { // Hook triggered after record is updated in database
+            if ($reparacion->isDirty('Estado') || $reparacion->isDirty('estado')) { // Check if repair status column changed
+                event(new ReparacionUpdated($reparacion)); // Dispatch custom ReparacionUpdated domain event
+            } // Close status change check
+        }); // Close updated event listener
+    } // End of boot method
+} // End of Reparacion model class

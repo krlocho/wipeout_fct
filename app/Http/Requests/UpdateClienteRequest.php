@@ -1,30 +1,29 @@
-<?php
+<?php // PHP opening tag
 
-namespace App\Http\Requests;
+namespace App\Http\Requests; // Namespace for request validators
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest; // Import base FormRequest class
 
-class UpdateClienteRequest extends FormRequest
-{
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
+class UpdateClienteRequest extends FormRequest { // Form request for updating customer records
+    public function authorize(): bool { // Check authorization
+        return true; // Allow request through controller policy check
+    } // End of authorize method
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
-    public function rules()
-    {
-        return [
-            //
-        ];
-    }
-}
+    public function rules(): array { // Define validation rules
+        return [ // Return associative validation rules
+            'Nombre' => ['required', 'string', 'max:100'], // Require client first name
+            'Apellido' => ['nullable', 'string', 'max:100'], // Optional client surname
+            'Direccion' => ['nullable', 'string', 'max:255'], // Optional address string
+            'Telefono' => ['required', 'string', 'max:30'], // Require contact phone number
+            'Email' => ['nullable', 'email', 'max:100'], // Optional valid email format
+        ]; // Close rules array
+    } // End of rules method
+
+    public function messages(): array { // Define custom validation feedback messages
+        return [ // Return associative messages array
+            'Nombre.required' => 'El nombre del cliente es obligatorio.', // Message for missing name
+            'Telefono.required' => 'El teléfono de contacto es obligatorio.', // Message for missing phone
+            'Email.email' => 'El email debe tener un formato válido.', // Message for invalid email
+        ]; // Close messages array
+    } // End of messages method
+} // End of UpdateClienteRequest class
