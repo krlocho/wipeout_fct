@@ -14,12 +14,12 @@ class SprintThreeLandingAndMonetizationTest extends TestCase // Test class for S
     { // Open test function
         $response = $this->get(route('welcome')); // Fetch home page route
         $response->assertStatus(200); // Assert HTTP status 200 OK
-        $response->assertSee('El software que ahorra'); // Assert hero headline present
-        $response->assertSee('10h/semana'); // Assert headline emphasis present
-        $response->assertSee('Registrar mi Taller Gratis'); // Assert primary CTA button present
-        $response->assertSee('Recepción Rápida en 1 Paso'); // Assert feature 1 present
-        $response->assertSee('Seguimiento QR en Vivo'); // Assert feature 2 present
-        $response->assertSee('Tablero Kanban Visual'); // Assert feature 3 present
+        $response->assertSee('El taller bajo control'); // Assert authentic headline present
+        $response->assertSee('De la resina al agua'); // Assert subtitle headline present
+        $response->assertSee('Registrar Taller'); // Assert register CTA button present
+        $response->assertSee('Alta Rápida (Quick Intake)'); // Assert feature 1 present
+        $response->assertSee('Tablero Kanban de Curado'); // Assert feature 2 present
+        $response->assertSee('Portal Público sin Contraseñas'); // Assert feature 3 present
         $response->assertSee('Shaper Local'); // Assert free tier present
         $response->assertSee('Taller Pro'); // Assert pro tier present
         $response->assertSee('Escuela & Factory', false); // Assert enterprise tier present without escaping search term
@@ -29,7 +29,7 @@ class SprintThreeLandingAndMonetizationTest extends TestCase // Test class for S
     { // Open test function
         $response = $this->get(route('welcome')); // Fetch home page route
         $response->assertStatus(200); // Assert HTTP status 200 OK
-        $response->assertSee('¿Dejaste tu tabla en un taller Wipeout?'); // Assert tracking heading
+        $response->assertSee('Comprobar estado de una tabla'); // Assert tracking heading
         $response->assertSee(route('reparaciones.track'), false); // Assert tracking action URL exists in search form
     } // Close test function
 } // Close class declaration

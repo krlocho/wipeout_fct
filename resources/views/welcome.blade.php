@@ -3,298 +3,259 @@
 <head> {{-- Head metadata --}}
     <meta charset="utf-8"> {{-- Character encoding --}}
     <meta name="viewport" content="width=device-width, initial-scale=1"> {{-- Viewport settings for mobile responsiveness --}}
-    <title>Wipeout | Software de Gestión para Talleres de Surf y Shapers</title> {{-- SEO optimized title --}}
-    <meta name="description" content="El software SaaS líder para talleres de reparación de tablas de surf. Recepción rápida de toques, seguimiento con código QR en vivo y tablero Kanban de producción."> {{-- SEO meta description --}}
-    <link rel="preconnect" href="https://fonts.bunny.net"> {{-- Preconnect Bunny fonts --}}
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" /> {{-- Figtree typography --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Vite asset bundle loader --}}
+    <title>Wipeout — Sistema de Gestión para Talleres de Surf y Shapers</title> {{-- Authentic page title --}}
+    <meta name="description" content="Gestión operativa de toques y tablas de surf. Recepción rápida, orden física con código QR y seguimiento online para clientes."> {{-- Meta description --}}
+    <link rel="preconnect" href="https://fonts.bunny.net"> {{-- Preconnect fonts --}}
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&family=space-mono:700&display=swap" rel="stylesheet" /> {{-- Fonts bundle --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Vite asset pipeline loader --}}
 </head> {{-- Close head --}}
-<body class="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-[#FF2D20] selection:text-white"> {{-- Main body with dark theme styling --}}
-    <header class="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800/80"> {{-- Sticky navigation bar --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"> {{-- Nav wrapper container --}}
-            <div class="flex items-center gap-3"> {{-- Brand logo container --}}
-                <a href="{{ route('welcome') }}" class="flex items-center gap-3 group"> {{-- Home anchor link --}}
-                    <x-application-logo class="w-10 h-10 fill-current text-[#FF2D20] transition transform group-hover:scale-105" /> {{-- App branding svg --}}
-                    <div class="flex flex-col"> {{-- Title wrapper --}}
-                        <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2"> {{-- Brand wordmark --}}
-                            WIPEOUT {{-- Wordmark name --}}
-                            <span class="text-[10px] uppercase font-bold tracking-widest bg-red-500/10 text-[#FF2D20] border border-red-500/20 px-2 py-0.5 rounded-full">Pro</span> {{-- Pro badge --}}
-                        </span> {{-- Close brand wordmark --}}
-                        <span class="text-[11px] text-zinc-400 hidden sm:inline">Software para Talleres de Surf</span> {{-- Subtitle tagline --}}
-                    </div> {{-- Close title wrapper --}}
-                </a> {{-- Close brand link --}}
-            </div> {{-- Close brand logo container --}}
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-300"> {{-- Desktop navigation items --}}
-                <a href="#caracteristicas" class="hover:text-white transition">Características</a> {{-- Feature section anchor --}}
-                <a href="#rastreo" class="hover:text-white transition">Rastrear Tabla</a> {{-- Tracking anchor --}}
-                <a href="#precios" class="hover:text-white transition">Precios</a> {{-- Pricing anchor --}}
-                <a href="#talleres" class="hover:text-white transition">Red de Talleres</a> {{-- Workshops map anchor --}}
-                <a href="#faq" class="hover:text-white transition">FAQ</a> {{-- FAQ anchor --}}
-            </nav> {{-- Close desktop navigation --}}
-            <div class="flex items-center gap-3"> {{-- Auth action buttons --}}
-                @auth {{-- Authenticated session check --}}
-                    <a href="{{ url('/dashboard') }}" class="px-4 py-2 text-sm font-semibold text-white bg-zinc-800 hover:bg-zinc-700 rounded-lg border border-zinc-700 transition">Panel de Control</a> {{-- Dashboard button --}}
-                @else {{-- Guest session check --}}
-                    <a href="{{ route('login') }}" class="px-3.5 py-2 text-sm font-medium text-zinc-300 hover:text-white transition">Acceso Taller</a> {{-- Login button --}}
-                    @if (Route::has('register')) {{-- Registration route check --}}
-                        <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-semibold text-white bg-[#FF2D20] hover:bg-[#e02619] rounded-lg shadow-sm shadow-red-500/30 transition transform hover:-translate-y-0.5">Prueba Gratis</a> {{-- Register CTA button --}}
-                    @endif {{-- Close registration check --}}
+<body class="bg-[#F8F7F4] text-zinc-900 font-sans antialiased selection:bg-zinc-900 selection:text-white"> {{-- Warm canvas editorial background --}}
+    <header class="border-b border-stone-200 bg-[#F8F7F4]/90 backdrop-blur-sm sticky top-0 z-50"> {{-- Sticky minimal header --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between"> {{-- Header flex container --}}
+            <a href="{{ route('welcome') }}" class="flex items-center gap-3 group"> {{-- Brand logo link --}}
+                <div class="w-9 h-9 bg-zinc-900 text-white rounded flex items-center justify-center font-mono font-bold text-base tracking-tighter group-hover:bg-[#D9381E] transition">W</div> {{-- Brutalist square brand mark --}}
+                <div class="flex flex-col"> {{-- Title column --}}
+                    <span class="text-base font-extrabold tracking-tight text-zinc-900 uppercase">WIPEOUT</span> {{-- Brand wordmark --}}
+                    <span class="text-[10px] uppercase font-mono tracking-wider text-zinc-500">Ding Repair System</span> {{-- Technical descriptor --}}
+                </div> {{-- Close title column --}}
+            </a> {{-- Close brand link --}}
+            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-zinc-600"> {{-- Navigation list --}}
+                <a href="#rastreo" class="hover:text-zinc-900 transition">Rastrear Tabla</a> {{-- Tracking anchor --}}
+                <a href="#flujo" class="hover:text-zinc-900 transition">El Sistema</a> {{-- Workflow anchor --}}
+                <a href="#precios" class="hover:text-zinc-900 transition">Planes</a> {{-- Pricing anchor --}}
+                <a href="#talleres" class="hover:text-zinc-900 transition">Red de Talleres</a> {{-- Workshops anchor --}}
+            </nav> {{-- Close navigation list --}}
+            <div class="flex items-center gap-3"> {{-- Header actions --}}
+                @auth {{-- Authenticated session --}}
+                    <a href="{{ url('/dashboard') }}" class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white rounded hover:bg-zinc-800 transition">Mi Taller</a> {{-- Dashboard button --}}
+                @else {{-- Guest session --}}
+                    <a href="{{ route('login') }}" class="px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-700 hover:text-zinc-900 transition">Acceso</a> {{-- Login link --}}
+                    @if (Route::has('register')) {{-- Register route check --}}
+                        <a href="{{ route('register') }}" class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-zinc-900 text-white rounded hover:bg-[#D9381E] transition">Registrar Taller</a> {{-- Register button --}}
+                    @endif {{-- Close register check --}}
                 @endauth {{-- Close auth check --}}
-            </div> {{-- Close auth actions --}}
-        </div> {{-- Close nav wrapper --}}
+            </div> {{-- Close header actions --}}
+        </div> {{-- Close header container --}}
     </header> {{-- Close header --}}
 
-    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-zinc-800/60 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,45,32,0.15),rgba(255,255,255,0))]"> {{-- Hero section wrapper --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Container grid --}}
-            <div class="text-center max-w-3xl mx-auto"> {{-- Hero content block --}}
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-red-950/60 text-red-400 border border-red-800/40 mb-6"> {{-- Pill badge --}}
-                    <span class="w-2 h-2 rounded-full bg-[#FF2D20] animate-pulse"></span> {{-- Pulse indicator --}}
-                    Software de gestión operativa nº 1 para talleres y shapers {{-- Badge text --}}
-                </div> {{-- Close pill badge --}}
-                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight"> {{-- Main headline --}}
-                    El software que ahorra <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-400">10h/semana</span> a tu taller de surf {{-- Headline highlight --}}
-                </h1> {{-- Close main headline --}}
-                <p class="mt-6 text-lg sm:text-xl text-zinc-400 leading-relaxed"> {{-- Hero subheadline --}}
-                    Recepción de toques en 30 segundos, fotos de daños desde el móvil, seguimiento transparente con código QR para surfistas y control visual con tablero Kanban. {{-- Subheadline text --}}
-                </p> {{-- Close subheadline --}}
-                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"> {{-- Hero CTA group --}}
-                    <a href="{{ route('register') }}" class="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-[#FF2D20] hover:bg-[#e02619] rounded-xl shadow-lg shadow-red-500/25 transition transform hover:-translate-y-0.5 text-center"> {{-- Primary CTA button --}}
-                        Registrar mi Taller Gratis {{-- Primary CTA text --}}
-                    </a> {{-- Close primary CTA --}}
-                    <a href="#rastreo" class="w-full sm:w-auto px-8 py-4 text-base font-semibold text-zinc-300 bg-zinc-900 hover:bg-zinc-800 rounded-xl border border-zinc-800 transition text-center"> {{-- Secondary CTA button --}}
-                        Rastrear una Tabla en Reparación {{-- Secondary CTA text --}}
-                    </a> {{-- Close secondary CTA --}}
-                </div> {{-- Close CTA group --}}
-                <div class="mt-8 flex items-center justify-center gap-6 text-xs text-zinc-500"> {{-- Value props row --}}
-                    <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Sin tarjeta de crédito</span> {{-- Prop 1 --}}
-                    <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Configuración en 2 minutos</span> {{-- Prop 2 --}}
-                    <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 5 tablas gratis al mes</span> {{-- Prop 3 --}}
-                </div> {{-- Close value props row --}}
-            </div> {{-- Close content block --}}
+    <section class="pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-stone-200"> {{-- Hero section --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6"> {{-- Container --}}
+            <div class="max-w-3xl"> {{-- Copy column --}}
+                <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-stone-200 text-zinc-800 text-[11px] font-mono uppercase tracking-wider mb-6 font-bold"> {{-- Technical pill --}}
+                    <span>//</span> TALLERES DE REPARACIÓN Y SHAPERS {{-- Category label --}}
+                </div> {{-- Close pill --}}
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-950 leading-[1.08]"> {{-- Editorial headline --}}
+                    El taller bajo control. <br />De la resina al agua. {{-- Main title lines --}}
+                </h1> {{-- Close headline --}}
+                <p class="mt-6 text-lg sm:text-xl text-zinc-600 leading-relaxed font-normal"> {{-- Subtitle --}}
+                    Recepción de toques en 30 segundos, etiqueta con código para la tabla y seguimiento online para que tus clientes sepan exactamente cuándo recogerla, sin llamadas ni mensajes continuos por WhatsApp. {{-- Subhead copy --}}
+                </p> {{-- Close subtitle --}}
+            </div> {{-- Close copy column --}}
 
-            <div class="mt-14 max-w-4xl mx-auto rounded-2xl bg-zinc-900/90 p-4 border border-zinc-800 shadow-2xl"> {{-- Metrics teaser container --}}
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-zinc-800"> {{-- Metrics grid --}}
-                    <div class="p-4"> {{-- Stat 1 --}}
-                        <div class="text-3xl font-extrabold text-white">30 seg</div> {{-- Stat number --}}
-                        <div class="text-xs text-zinc-400 mt-1">Recepción completa con foto</div> {{-- Stat label --}}
-                    </div> {{-- Close stat 1 --}}
-                    <div class="p-4"> {{-- Stat 2 --}}
-                        <div class="text-3xl font-extrabold text-[#FF2D20]">0</div> {{-- Stat number --}}
-                        <div class="text-xs text-zinc-400 mt-1">Llamadas de "¿está mi tabla?"</div> {{-- Stat label --}}
-                    </div> {{-- Close stat 2 --}}
-                    <div class="p-4"> {{-- Stat 3 --}}
-                        <div class="text-3xl font-extrabold text-white">100%</div> {{-- Stat number --}}
-                        <div class="text-xs text-zinc-400 mt-1">Visibilidad de producción</div> {{-- Stat label --}}
-                    </div> {{-- Close stat 3 --}}
-                    <div class="p-4"> {{-- Stat 4 --}}
-                        <div class="text-3xl font-extrabold text-white">+1,200</div> {{-- Stat number --}}
-                        <div class="text-xs text-zinc-400 mt-1">Tablas reparadas registradas</div> {{-- Stat label --}}
-                    </div> {{-- Close stat 4 --}}
-                </div> {{-- Close metrics grid --}}
-            </div> {{-- Close teaser container --}}
+            <div class="mt-10 max-w-2xl bg-white border border-stone-300 rounded-xl p-5 shadow-sm"> {{-- Search & start action card --}}
+                <span class="text-[11px] uppercase tracking-wider font-mono font-bold text-zinc-500 block mb-2">Comprobar estado de una tabla</span> {{-- Input label --}}
+                <form method="GET" action="{{ route('reparaciones.track') }}" class="flex flex-col sm:flex-row gap-2"> {{-- Tracking form --}}
+                    <input type="text" name="code" placeholder="Código de orden (ej. WP-DEMO01)" required class="flex-1 uppercase font-mono text-sm tracking-wider px-3.5 py-2.5 rounded-lg border border-stone-300 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 bg-stone-50" /> {{-- Input --}}
+                    <button type="submit" class="px-5 py-2.5 bg-zinc-900 hover:bg-[#D9381E] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition shrink-0">Rastrear</button> {{-- Submit button --}}
+                </form> {{-- Close form --}}
+                <div class="mt-3 flex items-center justify-between text-xs text-zinc-500 pt-3 border-t border-stone-100"> {{-- Sub info row --}}
+                    <span>¿Eres shaper o tienes taller? <a href="{{ route('register') }}" class="font-bold text-zinc-900 underline hover:text-[#D9381E]">Crear cuenta gratuita</a></span> {{-- Workshop register link --}}
+                    <a href="{{ route('reparaciones.track', ['code' => 'WP-DEMO01']) }}" class="hidden sm:inline font-mono text-zinc-600 hover:text-zinc-900">Ver orden ejemplo →</a> {{-- Demo link --}}
+                </div> {{-- Close sub info row --}}
+            </div> {{-- Close action card --}}
+
+            <div class="mt-16 grid lg:grid-cols-12 gap-8 items-start"> {{-- Workbench preview grid --}}
+                <div class="lg:col-span-7 bg-white border-2 border-zinc-900 rounded-xl p-6 shadow-[6px_6px_0px_0px_rgba(24,24,27,1)]"> {{-- Realistic workshop ticket card --}}
+                    <div class="flex items-start justify-between border-b-2 border-zinc-900 pb-4 mb-4"> {{-- Card top --}}
+                        <div> {{-- Left col --}}
+                            <span class="text-[10px] font-mono font-bold uppercase px-1.5 py-0.5 bg-zinc-900 text-white rounded">ORDEN DE TALLER</span> {{-- Badge --}}
+                            <h3 class="text-lg font-extrabold uppercase mt-1">Zarautz Surfboards Bay</h3> {{-- Workshop name --}}
+                            <p class="text-xs text-zinc-500 font-mono">22 Noviembre · Taller Principal</p> {{-- Meta --}}
+                        </div> {{-- Close left col --}}
+                        <div class="text-right"> {{-- Code col --}}
+                            <span class="text-[10px] uppercase font-mono text-zinc-400">Código Orden:</span> {{-- Label --}}
+                            <div class="font-mono text-2xl font-black text-[#D9381E]">WP-DEMO01</div> {{-- Code --}}
+                        </div> {{-- Close code col --}}
+                    </div> {{-- Close card top --}}
+                    <div class="grid sm:grid-cols-3 gap-4 text-xs py-2"> {{-- Details row --}}
+                        <div> {{-- Client details --}}
+                            <span class="text-zinc-400 uppercase font-mono text-[10px] block">Rider:</span> {{-- Rider label --}}
+                            <strong class="text-sm">Aitor Mendizabal</strong> {{-- Client name --}}
+                            <div class="text-zinc-500 font-mono text-[11px]">+34 611 223 344</div> {{-- Phone --}}
+                        </div> {{-- Close client details --}}
+                        <div> {{-- Board details --}}
+                            <span class="text-zinc-400 uppercase font-mono text-[10px] block">Tabla:</span> {{-- Board label --}}
+                            <strong class="text-sm">Lost Surfboards</strong> {{-- Brand --}}
+                            <div class="text-zinc-600">Driver 3.0 · Resina Epoxy</div> {{-- Model --}}
+                        </div> {{-- Close board details --}}
+                        <div class="bg-stone-50 p-2 rounded border border-stone-200"> {{-- State details --}}
+                            <span class="text-zinc-400 uppercase font-mono text-[10px] block">Estado:</span> {{-- State label --}}
+                            <span class="font-bold text-amber-700 font-mono">EN CURADO FIBRA</span> {{-- Current status --}}
+                            <div class="text-zinc-500 text-[11px] mt-0.5">Precio: 45,00 €</div> {{-- Price --}}
+                        </div> {{-- Close state details --}}
+                    </div> {{-- Close details row --}}
+                    <div class="mt-4 pt-3 border-t border-stone-200 flex items-center justify-between text-xs text-zinc-500 font-mono"> {{-- Ticket footer --}}
+                        <span>Fisura en canto derecho con delaminación</span> {{-- Damage scope --}}
+                        <span class="text-zinc-400">[ Escanear QR para seguimiento ]</span> {{-- QR note --}}
+                    </div> {{-- Close ticket footer --}}
+                </div> {{-- Close workshop ticket card --}}
+
+                <div class="lg:col-span-5 space-y-4"> {{-- Right highlights column --}}
+                    <div class="bg-white border border-stone-200 rounded-xl p-5"> {{-- Highlight 1 --}}
+                        <div class="text-xs font-mono font-bold uppercase text-zinc-400 mb-1">01 / RECEPCIÓN A PIE DE POTRO</div> {{-- Step number --}}
+                        <h4 class="font-bold text-base text-zinc-900 mb-1">Diagnóstico con foto en 30 segundos</h4> {{-- Heading --}}
+                        <p class="text-xs text-zinc-600 leading-relaxed">Saca la foto con el teléfono directamente en el taller antes de empezar a lijar. Se guarda con las medidas y los datos del rider.</p> {{-- Body --}}
+                    </div> {{-- Close highlight 1 --}}
+
+                    <div class="bg-white border border-stone-200 rounded-xl p-5"> {{-- Highlight 2 --}}
+                        <div class="text-xs font-mono font-bold uppercase text-zinc-400 mb-1">02 / ETIQUETA FÍSICA & CÓDIGO QR</div> {{-- Step number --}}
+                        <h4 class="font-bold text-base text-zinc-900 mb-1">Cada tabla identificada. Resguardo al cliente</h4> {{-- Heading --}}
+                        <p class="text-xs text-zinc-600 leading-relaxed">Imprime la orden en papel o etiqueta térmica. Entrega el resguardo con QR para que el cliente consulte cuándo está seca y terminada.</p> {{-- Body --}}
+                    </div> {{-- Close highlight 2 --}}
+
+                    <div class="bg-white border border-stone-200 rounded-xl p-5"> {{-- Highlight 3 --}}
+                        <div class="text-xs font-mono font-bold uppercase text-zinc-400 mb-1">03 / AVISO DIRECTO POR WHATSAPP</div> {{-- Step number --}}
+                        <h4 class="font-bold text-base text-zinc-900 mb-1">Avisa al terminar con un solo clic</h4> {{-- Heading --}}
+                        <p class="text-xs text-zinc-600 leading-relaxed">Al pasar la tabla a terminada en el tablero, un botón de WhatsApp abre la conversación con el mensaje de recogida y enlace ya preparado.</p> {{-- Body --}}
+                    </div> {{-- Close highlight 3 --}}
+                </div> {{-- Close right column --}}
+            </div> {{-- Close workbench grid --}}
         </div> {{-- Close container --}}
     </section> {{-- Close hero section --}}
 
-    <section id="rastreo" class="py-16 bg-zinc-900/50 border-b border-zinc-800"> {{-- Live customer tracking section --}}
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> {{-- Tracking wrapper --}}
-            <span class="text-xs uppercase tracking-widest font-bold text-[#FF2D20]">Portal de Autoservicio para Surfistas</span> {{-- Subtitle --}}
-            <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2">¿Dejaste tu tabla en un taller Wipeout?</h2> {{-- Heading --}}
-            <p class="text-sm text-zinc-400 mt-2 max-w-xl mx-auto">Consulta el estado de tu reparación en vivo introduciendo el código de seguimiento (ej. <span class="font-mono text-zinc-200">WP-ABC123</span>) o escanea el QR de tu resguardo.</p> {{-- Instructions --}}
-            <div class="mt-8"> {{-- Search component mount point --}}
-                <x-search-ding /> {{-- Render search ding component --}}
-            </div> {{-- Close mount point --}}
-        </div> {{-- Close tracking wrapper --}}
-    </section> {{-- Close tracking section --}}
+    <section id="flujo" class="py-16 sm:py-24 border-b border-stone-200 bg-white"> {{-- Workflow section --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6"> {{-- Container --}}
+            <div class="max-w-2xl mb-12"> {{-- Section lead --}}
+                <span class="text-xs font-mono uppercase font-bold text-zinc-400 tracking-wider">Metodología de Taller</span> {{-- Section badge --}}
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 mt-2">Diseñado para la realidad del polvo, la fibra y la resina.</h2> {{-- Title --}}
+                <p class="text-sm text-zinc-600 mt-3">Sin menús complejos ni configuración interminable. Abre desde el móvil en el potro o desde el ordenador del mostrador.</p> {{-- Subhead --}}
+            </div> {{-- Close section lead --}}
 
-    <section id="caracteristicas" class="py-20 lg:py-28 border-b border-zinc-800"> {{-- Features section --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Features container --}}
-            <div class="text-center max-w-3xl mx-auto mb-16"> {{-- Section header --}}
-                <span class="text-xs uppercase tracking-widest font-bold text-[#FF2D20]">Diseñado para el día a día en el taller</span> {{-- Section badge --}}
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Todo lo que necesitas para gestionar toques y tablas</h2> {{-- Section heading --}}
-                <p class="text-base text-zinc-400 mt-4">Deja las libretas manchadas de resina y las notas de WhatsApp en el olvido. Centraliza tu taller en una sola app.</p> {{-- Section subhead --}}
-            </div> {{-- Close header --}}
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> {{-- Features grid --}}
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 1 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">📸</div> {{-- Icon 1 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Recepción Rápida en 1 Paso</h3> {{-- Title 1 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Da de alta al cliente, la tabla y el daño con foto directamente desde la cámara de tu móvil en menos de 30 segundos.</p> {{-- Description 1 --}}
+            <div class="grid md:grid-cols-3 gap-6"> {{-- Cards grid --}}
+                <div class="border border-stone-200 rounded-xl p-6 bg-[#F8F7F4]"> {{-- Card 1 --}}
+                    <div class="w-8 h-8 rounded bg-zinc-900 text-white flex items-center justify-center font-mono font-bold text-xs mb-4">1</div> {{-- Number box --}}
+                    <h3 class="font-bold text-base text-zinc-900 mb-2">Alta Rápida (Quick Intake)</h3> {{-- Card title --}}
+                    <p class="text-xs text-zinc-600 leading-relaxed">Registra al surfista, la tabla y el toque en un único formulario fluido. Si el cliente ya existe, se vincula automáticamente a su quiver.</p> {{-- Card body --}}
                 </div> {{-- Close card 1 --}}
 
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 2 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">📱</div> {{-- Icon 2 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Seguimiento QR en Vivo</h3> {{-- Title 2 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Genera un código QR y enlace público para cada reparación. El surfista comprueba el avance en tiempo real sin tener que llamarte.</p> {{-- Description 2 --}}
+                <div class="border border-stone-200 rounded-xl p-6 bg-[#F8F7F4]"> {{-- Card 2 --}}
+                    <div class="w-8 h-8 rounded bg-zinc-900 text-white flex items-center justify-center font-mono font-bold text-xs mb-4">2</div> {{-- Number box --}}
+                    <h3 class="font-bold text-base text-zinc-900 mb-2">Tablero Kanban de Curado</h3> {{-- Card title --}}
+                    <p class="text-xs text-zinc-600 leading-relaxed">Visualiza las columnas de trabajo: Sin Empezar, En Proceso (fibra/resina) y Listas para Recoger. Mueve estados en un clic.</p> {{-- Card body --}}
                 </div> {{-- Close card 2 --}}
 
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 3 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">📋</div> {{-- Icon 3 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Tablero Kanban Visual</h3> {{-- Title 3 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Gestiona tu cola de trabajo por columnas: Sin Empezar, En Proceso y Terminado. Visualiza cuellos de botella al instante.</p> {{-- Description 3 --}}
+                <div class="border border-stone-200 rounded-xl p-6 bg-[#F8F7F4]"> {{-- Card 3 --}}
+                    <div class="w-8 h-8 rounded bg-zinc-900 text-white flex items-center justify-center font-mono font-bold text-xs mb-4">3</div> {{-- Number box --}}
+                    <h3 class="font-bold text-base text-zinc-900 mb-2">Portal Público sin Contraseñas</h3> {{-- Card title --}}
+                    <p class="text-xs text-zinc-600 leading-relaxed">Tus clientes acceden mediante su código de orden para ver las fotos y el avance. Cero fricción, cero llamadas para preguntar si ya está lista.</p> {{-- Card body --}}
                 </div> {{-- Close card 3 --}}
+            </div> {{-- Close cards grid --}}
+        </div> {{-- Close container --}}
+    </section> {{-- Close workflow section --}}
 
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 4 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">✉️</div> {{-- Icon 4 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Avisos Automáticos</h3> {{-- Title 4 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Notificaciones por email instantáneas al cliente cuando la orden es creada y cuando la tabla está lista para su recogida.</p> {{-- Description 4 --}}
-                </div> {{-- Close card 4 --}}
+    <section id="precios" class="py-16 sm:py-24 border-b border-stone-200"> {{-- Pricing section --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6"> {{-- Container --}}
+            <div class="max-w-2xl mb-12"> {{-- Lead --}}
+                <span class="text-xs font-mono uppercase font-bold text-zinc-400 tracking-wider">Precios Claros</span> {{-- Badge --}}
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 mt-2">Empieza gratis. Escala si tu taller lo necesita.</h2> {{-- Title --}}
+                <p class="text-sm text-zinc-600 mt-3">Sin letra pequeña. Todos los planes incluyen etiquetas con código QR y portal de seguimiento.</p> {{-- Subhead --}}
+            </div> {{-- Close lead --}}
 
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 5 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">🏄‍♂️</div> {{-- Icon 5 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Quiver & Historial de Clientes</h3> {{-- Title 5 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Base de datos de todos tus clientes y sus tablas asociadas. Conoce las preferencias y toques recurrentes de cada rider.</p> {{-- Description 5 --}}
-                </div> {{-- Close card 5 --}}
+            <div class="grid md:grid-cols-3 gap-6 items-stretch"> {{-- Plans grid --}}
+                <div class="bg-white border border-stone-300 rounded-xl p-6 flex flex-col justify-between"> {{-- Free plan --}}
+                    <div> {{-- Content --}}
+                        <span class="text-[10px] font-mono uppercase font-bold text-zinc-500">Plan Básico</span> {{-- Category --}}
+                        <h3 class="text-xl font-extrabold text-zinc-900 mt-1">Shaper Local</h3> {{-- Title --}}
+                        <div class="mt-4 flex items-baseline gap-1"> {{-- Price --}}
+                            <span class="text-3xl font-black text-zinc-900 font-mono">0€</span> {{-- Figure --}}
+                            <span class="text-xs text-zinc-500">/ mes para siempre</span> {{-- Frequency --}}
+                        </div> {{-- Close price --}}
+                        <p class="text-xs text-zinc-600 mt-3">Para artesanos independientes o talleres ocasionales que quieren probar el sistema.</p> {{-- Description --}}
+                        <ul class="mt-6 space-y-2 text-xs text-zinc-700 border-t border-stone-100 pt-4"> {{-- Features list --}}
+                            <li class="flex items-center gap-2">✓ Hasta 5 tablas al mes</li> {{-- Item 1 --}}
+                            <li class="flex items-center gap-2">✓ Código QR y portal de cliente</li> {{-- Item 2 --}}
+                            <li class="flex items-center gap-2">✓ Tablero Kanban de producción</li> {{-- Item 3 --}}
+                            <li class="flex items-center gap-2">✓ Impresión de tickets de taller</li> {{-- Item 4 --}}
+                        </ul> {{-- Close features --}}
+                    </div> {{-- Close content --}}
+                    <div class="mt-8"> {{-- Button container --}}
+                        <a href="{{ route('register') }}" class="block w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded transition">Comenzar Gratis</a> {{-- Free button --}}
+                    </div> {{-- Close button container --}}
+                </div> {{-- Close free plan --}}
 
-                <div class="p-8 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition"> {{-- Feature card 6 --}}
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-[#FF2D20] flex items-center justify-center font-bold text-xl mb-6">🔒</div> {{-- Icon 6 --}}
-                    <h3 class="text-xl font-bold text-white mb-2">Multi-Inquilino & Seguro</h3> {{-- Title 6 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Políticas de seguridad blindadas. Cada taller gestiona exclusivamente sus clientes y reparaciones con total privacidad.</p> {{-- Description 6 --}}
-                </div> {{-- Close card 6 --}}
-            </div> {{-- Close features grid --}}
-        </div> {{-- Close features container --}}
-    </section> {{-- Close features section --}}
+                <div class="bg-white border-2 border-zinc-900 rounded-xl p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_rgba(24,24,27,1)] relative"> {{-- Pro plan --}}
+                    <div class="absolute -top-3 left-6 bg-[#D9381E] text-white text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded tracking-wider">Recomendado Taller</div> {{-- Pro badge --}}
+                    <div> {{-- Content --}}
+                        <span class="text-[10px] font-mono uppercase font-bold text-zinc-500">Volumen Taller</span> {{-- Category --}}
+                        <h3 class="text-xl font-extrabold text-zinc-900 mt-1">Taller Pro</h3> {{-- Title --}}
+                        <div class="mt-4 flex items-baseline gap-1"> {{-- Price --}}
+                            <span class="text-3xl font-black text-zinc-900 font-mono">29€</span> {{-- Figure --}}
+                            <span class="text-xs text-zinc-500">/ mes sin permanencia</span> {{-- Frequency --}}
+                        </div> {{-- Close price --}}
+                        <p class="text-xs text-zinc-600 mt-3">Para talleres profesionales en activo con entrada continua de tablas.</p> {{-- Description --}}
+                        <ul class="mt-6 space-y-2 text-xs text-zinc-900 border-t border-stone-100 pt-4 font-medium"> {{-- Features list --}}
+                            <li class="flex items-center gap-2">✓ <strong>Tablas y reparaciones ilimitadas</strong></li> {{-- Item 1 --}}
+                            <li class="flex items-center gap-2">✓ Fotos de toques en alta resolución</li> {{-- Item 2 --}}
+                            <li class="flex items-center gap-2">✓ Avisos por WhatsApp con 1 clic</li> {{-- Item 3 --}}
+                            <li class="flex items-center gap-2">✓ Notificaciones por correo electrónico</li> {{-- Item 4 --}}
+                            <li class="flex items-center gap-2">✓ Soporte directo para el taller</li> {{-- Item 5 --}}
+                        </ul> {{-- Close features --}}
+                    </div> {{-- Close content --}}
+                    <div class="mt-8"> {{-- Button container --}}
+                        <a href="{{ route('register') }}" class="block w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider bg-zinc-900 hover:bg-[#D9381E] text-white rounded transition">Empezar con Taller Pro</a> {{-- Pro button --}}
+                    </div> {{-- Close button container --}}
+                </div> {{-- Close pro plan --}}
 
-    <section id="precios" class="py-20 lg:py-28 border-b border-zinc-800 bg-zinc-900/30"> {{-- Pricing section --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Pricing container --}}
-            <div class="text-center max-w-3xl mx-auto mb-16"> {{-- Section header --}}
-                <span class="text-xs uppercase tracking-widest font-bold text-[#FF2D20]">Precios Transparentes</span> {{-- Section badge --}}
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Planes adaptados al tamaño de tu taller</h2> {{-- Section heading --}}
-                <p class="text-base text-zinc-400 mt-4">Comienza gratis sin compromiso y escala a medida que aumente tu volumen de tablas.</p> {{-- Section subhead --}}
-            </div> {{-- Close header --}}
-
-            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch"> {{-- Pricing cards grid --}}
-                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 flex flex-col justify-between"> {{-- Free tier card --}}
-                    <div> {{-- Content block --}}
-                        <h3 class="text-lg font-bold text-white">Shaper Local</h3> {{-- Tier name --}}
-                        <p class="text-xs text-zinc-400 mt-1">Para artesanos independientes y talleres que empiezan.</p> {{-- Tier description --}}
-                        <div class="mt-6 flex items-baseline gap-1"> {{-- Price display --}}
-                            <span class="text-4xl font-extrabold text-white">0€</span> {{-- Price number --}}
-                            <span class="text-sm text-zinc-400">/mes para siempre</span> {{-- Price period --}}
-                        </div> {{-- Close price display --}}
-                        <ul class="mt-8 space-y-3 text-sm text-zinc-300"> {{-- Feature list --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Hasta 5 tablas activas al mes</li> {{-- Item 1 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Código QR y enlace de seguimiento</li> {{-- Item 2 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Tablero Kanban básico</li> {{-- Item 3 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Directorio de clientes y tablas</li> {{-- Item 4 --}}
-                        </ul> {{-- Close feature list --}}
-                    </div> {{-- Close content block --}}
-                    <div class="mt-8"> {{-- Action button container --}}
-                        <a href="{{ route('register') }}" class="block w-full py-3 px-4 text-center text-sm font-semibold text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition border border-zinc-700">Comenzar Gratis</a> {{-- Free tier button --}}
-                    </div> {{-- Close action button --}}
-                </div> {{-- Close free tier card --}}
-
-                <div class="bg-zinc-900 rounded-2xl p-8 border-2 border-[#FF2D20] shadow-2xl shadow-red-500/10 flex flex-col justify-between relative"> {{-- Pro tier card --}}
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF2D20] text-white text-[11px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider shadow-sm">Más Popular</div> {{-- Most popular badge --}}
-                    <div> {{-- Content block --}}
-                        <h3 class="text-lg font-bold text-white">Taller Pro</h3> {{-- Tier name --}}
-                        <p class="text-xs text-zinc-400 mt-1">Para talleres de surf en activo con flujo continuo de toques.</p> {{-- Tier description --}}
-                        <div class="mt-6 flex items-baseline gap-1"> {{-- Price display --}}
-                            <span class="text-4xl font-extrabold text-white">29€</span> {{-- Price number --}}
-                            <span class="text-sm text-zinc-400">/mes (facturación mensual)</span> {{-- Price period --}}
-                        </div> {{-- Close price display --}}
-                        <ul class="mt-8 space-y-3 text-sm text-zinc-300"> {{-- Feature list --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-[#FF2D20] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> <strong>Reparaciones ilimitadas</strong></li> {{-- Item 1 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-[#FF2D20] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Subida de fotos de daños en alta definición</li> {{-- Item 2 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-[#FF2D20] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Notificaciones automáticas por Email</li> {{-- Item 3 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-[#FF2D20] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Quick Intake acelerado para móvil</li> {{-- Item 4 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-[#FF2D20] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Soporte prioritario por WhatsApp</li> {{-- Item 5 --}}
-                        </ul> {{-- Close feature list --}}
-                    </div> {{-- Close content block --}}
-                    <div class="mt-8"> {{-- Action button container --}}
-                        <a href="{{ route('register') }}" class="block w-full py-3 px-4 text-center text-sm font-bold text-white bg-[#FF2D20] hover:bg-[#e02619] rounded-xl transition shadow-lg shadow-red-500/25">Empezar Prueba de 14 Días</a> {{-- Pro tier button --}}
-                    </div> {{-- Close action button --}}
-                </div> {{-- Close pro tier card --}}
-
-                <div class="bg-zinc-900 rounded-2xl p-8 border border-zinc-800 flex flex-col justify-between"> {{-- Enterprise tier card --}}
-                    <div> {{-- Content block --}}
-                        <h3 class="text-lg font-bold text-white">Escuela & Factory</h3> {{-- Tier name --}}
-                        <p class="text-xs text-zinc-400 mt-1">Para escuelas de surf, surf camps y fábricas multi-operario.</p> {{-- Tier description --}}
-                        <div class="mt-6 flex items-baseline gap-1"> {{-- Price display --}}
-                            <span class="text-4xl font-extrabold text-white">59€</span> {{-- Price number --}}
-                            <span class="text-sm text-zinc-400">/mes</span> {{-- Price period --}}
-                        </div> {{-- Close price display --}}
-                        <ul class="mt-8 space-y-3 text-sm text-zinc-300"> {{-- Feature list --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Todo lo incluido en el plan Pro</li> {{-- Item 1 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Múltiples cuentas para operarios de taller</li> {{-- Item 2 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Gestión de flotas de escuelas y alquiler</li> {{-- Item 3 --}}
-                            <li class="flex items-center gap-2.5"><svg class="w-4 h-4 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Exportación de métricas y facturación</li> {{-- Item 4 --}}
-                        </ul> {{-- Close feature list --}}
-                    </div> {{-- Close content block --}}
-                    <div class="mt-8"> {{-- Action button container --}}
-                        <a href="{{ route('register') }}" class="block w-full py-3 px-4 text-center text-sm font-semibold text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition border border-zinc-700">Contactar para Factory</a> {{-- Enterprise tier button --}}
-                    </div> {{-- Close action button --}}
-                </div> {{-- Close enterprise tier card --}}
-            </div> {{-- Close pricing cards grid --}}
-        </div> {{-- Close pricing container --}}
+                <div class="bg-white border border-stone-300 rounded-xl p-6 flex flex-col justify-between"> {{-- Factory plan --}}
+                    <div> {{-- Content --}}
+                        <span class="text-[10px] font-mono uppercase font-bold text-zinc-500">Multi-Operario</span> {{-- Category --}}
+                        <h3 class="text-xl font-extrabold text-zinc-900 mt-1">Escuela & Factory</h3> {{-- Title --}}
+                        <div class="mt-4 flex items-baseline gap-1"> {{-- Price --}}
+                            <span class="text-3xl font-black text-zinc-900 font-mono">59€</span> {{-- Figure --}}
+                            <span class="text-xs text-zinc-500">/ mes</span> {{-- Frequency --}}
+                        </div> {{-- Close price --}}
+                        <p class="text-xs text-zinc-600 mt-3">Para escuelas de surf, surf camps y fábricas de tablas con varios operarios.</p> {{-- Description --}}
+                        <ul class="mt-6 space-y-2 text-xs text-zinc-700 border-t border-stone-100 pt-4"> {{-- Features list --}}
+                            <li class="flex items-center gap-2">✓ Todo lo incluido en Taller Pro</li> {{-- Item 1 --}}
+                            <li class="flex items-center gap-2">✓ Cuentas para múltiples operarios</li> {{-- Item 2 --}}
+                            <li class="flex items-center gap-2">✓ Control de flota de tablas de escuela</li> {{-- Item 3 --}}
+                            <li class="flex items-center gap-2">✓ Métricas y exportación mensual</li> {{-- Item 4 --}}
+                        </ul> {{-- Close features --}}
+                    </div> {{-- Close content --}}
+                    <div class="mt-8"> {{-- Button container --}}
+                        <a href="{{ route('register') }}" class="block w-full py-2.5 text-center text-xs font-bold uppercase tracking-wider bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded transition">Contactar para Factory</a> {{-- Factory button --}}
+                    </div> {{-- Close button container --}}
+                </div> {{-- Close factory plan --}}
+            </div> {{-- Close plans grid --}}
+        </div> {{-- Close container --}}
     </section> {{-- Close pricing section --}}
 
-    <section id="talleres" class="py-20 lg:py-28 border-b border-zinc-800"> {{-- Workshop map directory section --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Container --}}
-            <div class="text-center max-w-3xl mx-auto mb-12"> {{-- Section header --}}
-                <span class="text-xs uppercase tracking-widest font-bold text-[#FF2D20]">Ecosistema Wipeout</span> {{-- Badge --}}
-                <h2 class="text-3xl font-extrabold text-white mt-2">Talleres de surf asociados</h2> {{-- Title --}}
-                <p class="text-sm text-zinc-400 mt-2">Encuentra los talleres de reparación y shapers de confianza en tu zona.</p> {{-- Subhead --}}
-            </div> {{-- Close header --}}
-            <div class="max-w-4xl mx-auto"> {{-- Map container wrapper --}}
-                <x-map-card :users="$users" /> {{-- Render interactive workshops map --}}
-            </div> {{-- Close map wrapper --}}
+    <section id="talleres" class="py-16 sm:py-24 border-b border-stone-200 bg-white"> {{-- Workshop map section --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6"> {{-- Container --}}
+            <div class="max-w-2xl mb-8"> {{-- Heading --}}
+                <span class="text-xs font-mono uppercase font-bold text-zinc-400 tracking-wider">Directorio de Talleres</span> {{-- Badge --}}
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mt-1">Talleres y shapers asociados</h2> {{-- Title --}}
+                <p class="text-xs text-zinc-600 mt-1">Localiza talleres de confianza con sistema Wipeout en tu zona.</p> {{-- Subhead --}}
+            </div> {{-- Close heading --}}
+            <div class="rounded-xl overflow-hidden border border-stone-300"> {{-- Map container --}}
+                <x-map-card :users="$users" /> {{-- Render map component --}}
+            </div> {{-- Close map container --}}
         </div> {{-- Close container --}}
-    </section> {{-- Close workshop map directory section --}}
+    </section> {{-- Close map section --}}
 
-    <section id="faq" class="py-20 lg:py-28 border-b border-zinc-800 bg-zinc-900/40"> {{-- FAQ section --}}
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Container --}}
-            <div class="text-center mb-16"> {{-- Section header --}}
-                <span class="text-xs uppercase tracking-widest font-bold text-[#FF2D20]">Dudas Frecuentes</span> {{-- Badge --}}
-                <h2 class="text-3xl font-extrabold text-white mt-2">Preguntas frecuentes</h2> {{-- Heading --}}
-            </div> {{-- Close header --}}
-
-            <div class="space-y-6"> {{-- FAQ items container --}}
-                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800"> {{-- Question 1 --}}
-                    <h3 class="text-base font-bold text-white mb-2">¿Mis clientes surfistas necesitan crearse una cuenta para ver el estado?</h3> {{-- Q1 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">No. El cliente solo necesita el enlace público o escanear el código QR que se le envía. No requiere contraseñas ni altas previas, lo que garantiza una adopción del 100% sin fricción.</p> {{-- A1 --}}
-                </div> {{-- Close question 1 --}}
-
-                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800"> {{-- Question 2 --}}
-                    <h3 class="text-base font-bold text-white mb-2">¿Puedo usar Wipeout desde el teléfono móvil en el taller?</h3> {{-- Q2 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Sí. Toda la aplicación está diseñada con enfoque mobile-first. Puedes sacar fotos del toque directamente con la cámara de tu smartphone mientras inspeccionas la tabla en el potro.</p> {{-- A2 --}}
-                </div> {{-- Close question 2 --}}
-
-                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800"> {{-- Question 3 --}}
-                    <h3 class="text-base font-bold text-white mb-2">¿Qué pasa si supero las 5 tablas mensuales del plan gratuito?</h3> {{-- Q3 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Podrás actualizar al plan Taller Pro en cualquier momento con un clic para seguir registrando tablas sin interrupciones. No perderás ningún dato ni histórico de clientes.</p> {{-- A3 --}}
-                </div> {{-- Close question 3 --}}
-
-                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800"> {{-- Question 4 --}}
-                    <h3 class="text-base font-bold text-white mb-2">¿Pueden otros talleres ver mis clientes o presupuestos?</h3> {{-- Q4 --}}
-                    <p class="text-sm text-zinc-400 leading-relaxed">Rotundamente no. La plataforma cuenta con políticas de seguridad multi-inquilino a nivel de base de datos. Cada taller solo tiene visibilidad sobre su propia información.</p> {{-- A4 --}}
-                </div> {{-- Close question 4 --}}
-            </div> {{-- Close FAQ items container --}}
-        </div> {{-- Close container --}}
-    </section> {{-- Close FAQ section --}}
-
-    <section class="py-20 bg-gradient-to-b from-zinc-900 to-zinc-950 text-center"> {{-- Final CTA section --}}
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"> {{-- Container --}}
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Lleva tu taller de surf al siguiente nivel</h2> {{-- Headline --}}
-            <p class="text-base text-zinc-400 mt-4 max-w-xl mx-auto">Únete a los talleres que ya han eliminado el caos en la gestión de toques y ahorrado cientos de horas de llamadas y mensajes.</p> {{-- Subhead --}}
-            <div class="mt-8 flex justify-center"> {{-- Action container --}}
-                <a href="{{ route('register') }}" class="px-8 py-4 text-base font-bold text-white bg-[#FF2D20] hover:bg-[#e02619] rounded-xl shadow-xl shadow-red-500/25 transition transform hover:-translate-y-0.5">Crear Cuenta de Taller Gratis</a> {{-- Button --}}
-            </div> {{-- Close action container --}}
-        </div> {{-- Close container --}}
-    </section> {{-- Close final CTA section --}}
-
-    <footer class="py-12 border-t border-zinc-800/80 bg-zinc-950 text-xs text-zinc-500"> {{-- Footer wrapper --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4"> {{-- Footer flex container --}}
-            <div class="flex items-center gap-2"> {{-- Brand footer block --}}
-                <x-application-logo class="w-6 h-6 fill-current text-[#FF2D20]" /> {{-- Footer logo --}}
-                <span class="font-bold text-zinc-300">WIPEOUT</span> {{-- Wordmark --}}
-                <span>© {{ date('Y') }} Todos los derechos reservados.</span> {{-- Copyright notice --}}
-            </div> {{-- Close brand footer block --}}
-            <div class="flex items-center gap-6"> {{-- Footer links --}}
-                <a href="#caracteristicas" class="hover:text-zinc-300 transition">Características</a> {{-- Link 1 --}}
-                <a href="#precios" class="hover:text-zinc-300 transition">Precios</a> {{-- Link 2 --}}
-                <a href="{{ route('login') }}" class="hover:text-zinc-300 transition">Acceso Taller</a> {{-- Link 3 --}}
-            </div> {{-- Close footer links --}}
-        </div> {{-- Close footer flex container --}}
-    </footer> {{-- Close footer wrapper --}}
-</body> {{-- Close body tag --}}
-</html> {{-- Close html tag --}}
+    <footer class="py-10 bg-[#F8F7F4] text-xs text-zinc-500 font-mono"> {{-- Footer --}}
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4"> {{-- Footer container --}}
+            <div class="flex items-center gap-2"> {{-- Brand block --}}
+                <span class="font-bold text-zinc-900">WIPEOUT</span> {{-- Brand --}}
+                <span>//</span> {{-- Slash --}}
+                <span>Ding Repair Management System © {{ date('Y') }}</span> {{-- Copyright --}}
+            </div> {{-- Close brand block --}}
+            <div class="flex items-center gap-6 text-[11px] uppercase"> {{-- Links list --}}
+                <a href="#flujo" class="hover:text-zinc-900 transition">El Sistema</a> {{-- Link 1 --}}
+                <a href="#precios" class="hover:text-zinc-900 transition">Planes</a> {{-- Link 2 --}}
+                <a href="{{ route('login') }}" class="hover:text-zinc-900 transition">Acceso Taller</a> {{-- Link 3 --}}
+            </div> {{-- Close links list --}}
+        </div> {{-- Close footer container --}}
+    </footer> {{-- Close footer --}}
+</body> {{-- Close body --}}
+</html> {{-- Close html --}}
