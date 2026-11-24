@@ -31,6 +31,10 @@ class StoreReparacionRequest extends FormRequest { // Form request for creating 
 
     public function with_validator($validator): void { // Custom validation rules logic
         $validator->after(function ($validator_instance) { // Add post-validation checks
+            $current_user = $this->user(); // Retrieve authenticated user instance
+            if ($current_user && $current_user->has_reached_monthly_limit()) { // Check free tier quota
+                $validator_instance->errors()->add('plan', 'Has alcanzado el límite de 5 tablas mensuales del plan gratuito. Actualiza a Taller Pro para reparaciones ilimitadas.'); // Add limit error
+            } // Close quota check
             if (empty($this->input('Cliente_id')) && empty($this->input('nuevo_cliente_nombre'))) { // Check client existence
                 $validator_instance->errors()->add('Cliente_id', 'Debes seleccionar un cliente existente o indicar el nombre de uno nuevo.'); // Add error
             } // Close client check

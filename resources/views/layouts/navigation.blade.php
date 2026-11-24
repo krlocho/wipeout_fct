@@ -31,6 +31,17 @@
                     <x-nav-link :href="route('reparaciones.index')" :active="request()->routeIs('reparaciones.index')">
                         {{ __('Reparaciones') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('suscripcion.index')" :active="request()->routeIs('suscripcion.index')"> {{-- Subscription link --}}
+                        <span class="flex items-center gap-1.5"> {{-- Badge flex --}}
+                            {{ __('Plan') }} {{-- Label --}}
+                            @if (Auth::user()?->is_pro()) {{-- Pro check --}}
+                                <span class="bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-300 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">PRO</span> {{-- Pro pill --}}
+                            @else {{-- Free check --}}
+                                <span class="bg-gray-100 text-gray-600 dark:bg-zinc-700 dark:text-gray-300 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">FREE</span> {{-- Free pill --}}
+                            @endif {{-- Close check --}}
+                        </span> {{-- Close badge flex --}}
+                    </x-nav-link> {{-- Close subscription link --}}
                 </div>
             </div>
 

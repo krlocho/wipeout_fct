@@ -1,6 +1,7 @@
 <?php // PHP opening tag
 
 use App\Http\Controllers\ProfileController; // Import ProfileController
+use App\Http\Controllers\SubscriptionController; // Import SubscriptionController
 use App\Http\Controllers\TablaController; // Import TablaController
 use Illuminate\Support\Facades\Route; // Import Route facade
 use App\Http\Controllers\ClienteController; // Import ClienteController
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () { // Group routes requiring active 
     Route::resource('/reparaciones', ReparacionController::class); // RESTful resource routes for repairs
     Route::resource('/tablas', TablaController::class); // RESTful resource routes for surfboards
     Route::resource('/clientes', ClienteController::class); // RESTful resource routes for clients
+    Route::get('/suscripcion', [SubscriptionController::class, 'index'])->name('suscripcion.index'); // Subscription management screen
+    Route::post('/suscripcion/checkout', [SubscriptionController::class, 'checkout'])->name('suscripcion.checkout'); // Stripe checkout subscription activation
+    Route::get('/suscripcion/success', [SubscriptionController::class, 'success'])->name('suscripcion.success'); // Return redirect after checkout
+    Route::post('/suscripcion/cancel', [SubscriptionController::class, 'cancel'])->name('suscripcion.cancel'); // Cancel current recurring subscription
 }); // Close authenticated routes group
 
 Route::get('login/google', [GoogleController::class, 'redirect_to_google'])->name('login.google'); // OAuth Google redirect route
